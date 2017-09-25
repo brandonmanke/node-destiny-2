@@ -1,5 +1,4 @@
 /**
- *
  * @author Brandon Manke
  * TODO rewrite http promise, to just be able to copy/paste it
  */

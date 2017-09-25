@@ -18,5 +18,3 @@ destiny.getManifest()
     .catch((error) => {
         console.error(`Get Manifest Error: ${error}`);
     });
-//console.log('\n\n====================\n\n');
-//api.getDestinyEntityDefinition('DestinyInventoryItemDefinition', 1346849289);
