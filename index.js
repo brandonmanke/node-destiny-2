@@ -133,6 +133,390 @@ class Destiny2API {
             });
         });
     }
+
+    getClanWeeklyRewardState(groupId) {
+        this.options.path = `/Destiny2/Clan/${groupId}/WeeklyRewardState/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    getItem(membershipType, destinyMembershipId, itemInstanceId) {
+        this.options.path = `/Destiny2/${membershipType}/Profile/${destinyMembershipId}/Item/${itemInstanceId}/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    /**
+     * This endpoint is not active as of yet
+     * Get available vendors info
+     */
+    getVendors(membershipType, destinyMembershipId, characterId) {
+        this.options.path = 
+            `/Destiny2/${membershipType}/Profile/${destinyMembershipId}/Character/${characterId}/Vendors/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    /**
+     * This endpoint is not active as of yet
+     * Get specific vendor info based on vendorHash
+     */
+    getVendor(membershipType, destinyMembershipId, characterId, vendorHash) {
+        this.options.path = 
+            `/Destiny2/${membershipType}/Profile/${destinyMembershipId}/Character/${characterId}/Vendors/${vendorHash}`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    // TODO post requests, seem to need oauth
+
+    // ====
+
+    getPostGameCarnageReport(activityId) {
+        this.options.path = `/Destiny2/Stats/PostGameCarnageReport/${activityId}/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    getHistoricalStatsDefinition() {
+        this.options.path = `/Destiny2/Stats/Definition/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    /**
+     * This endpoint is still in beta
+     */
+    getClanLeaderboards(groupId) {
+        this.options.path = `/Destiny2/Stats/Leaderboards/Clans/${groupId}/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    /**
+     * This endpoint is still in beta
+     */
+    getClanAggregateStats(groupId) {
+        this.options.path = `/Destiny2/Stats/AggregateClanStats/${groupId}/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    /**
+     * This endpoint is still in beta
+     */
+    getLeaderboards(membershipType, destinyMembershipId) {
+        this.options.path = `/Destiny2/${membershipType}/Account/${destinyMembershipId}/Stats/Leaderboards/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    /**
+     * This endpoint is still in beta
+     */
+    getLeaderboardsForCharacter(membershipType, destinyMembershipId, characterId) {
+        this.options.path = `/Destiny2/Stats/Leaderboards/${membershipType}/${destinyMembershipId}/${characterId}/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    searchDestinyEntities(type, searchTerm) {
+        this.options.path = `/Destiny2/Armory/Search/${type}/${searchTerm}/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    /**
+     * This endpoint is still in beta
+     */
+    getHistoricalStats(membershipType, destinyMembershipId, characterId) {
+        this.options.path = `/Destiny2/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Stats/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    /**
+     * This endpoint is still in beta
+     */
+    getHistoricalStatsForAccount(membershipType, destinyMembershipId) {
+        this.options.path = `/Destiny2/${membershipType}/Account/${destinyMembershipId}/Stats/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    /**
+     * This endpoint is still in beta
+     */
+    getActivityHistory(membershipType, destinyMembershipId, characterId) {
+        this.options.path = `/Destiny2/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Stats/Activities/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    /**
+     * This endpoint is still in beta
+     */
+    getUniqueWeaponHistory(membershipType, destinyMembershipId, characterId) {
+        this.options.path = `/Destiny2/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Stats/UniqueWeapons/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    /**
+     * This endpoint is still in beta
+     */
+    getDestinyAggregateActivityStats(membershipType, destinyMembershipId, characterId) {
+        this.options.path = `/Destiny2/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Stats/AggregateActivityStats/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    getPublicMilestoneContent(milestoneHash) {
+        this.options.path = `/Destiny2/Milestones/${milestoneHash}/Content/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    getPublicMilestones() {
+        this.options.path = `/Destiny2/Milestones/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
 }
 
 module.exports = Destiny2API;
