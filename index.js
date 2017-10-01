@@ -1,4 +1,5 @@
 /**
+ * API Wrapper for Destiny 2, built with Node.js
  * @author Brandon Manke
  */
 const https = require('https');
@@ -28,7 +29,7 @@ class Destiny2API {
 
     /**
      * Async GetManifest
-     * Right now it links to sqlite database file, so I don't really know how to handle this as of right now 
+     * Links to sqlite database file, so I don't really know how to handle this
      */
     getManifest() {
         this.options.path = '/Platform/Destiny2/Manifest/';
@@ -51,7 +52,7 @@ class Destiny2API {
     }
 
     /**
-     *
+     * 
      */
     getDestinyEntityDefinition(typeDefinition, hashIdentifier) {
         this.options.path = `${this.path}/Manifest/${typeDefinition}/${hashIdentifier}/`;
@@ -73,8 +74,27 @@ class Destiny2API {
         });
     }
 
+    searchPlayer(membershipType, displayName) {
+        this.options.path = `${this.path}/SearchDestinyPlayer/${membershipType}/${displayName}/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
+                    reject(err.message);
+                }
+            });
+        })
+    }
+
     /**
-     * 
+     * Get bungie net profile, based on membership id and filter by membership type
      */
     getProfile(membershipType, destinyMembershipId) {
         this.options.path = `/Destiny2/${membershipType}/Profile/${destinyMembershipId}/`;
@@ -89,7 +109,25 @@ class Destiny2API {
                 try {
                     resolve(rawData);
                 } catch (err) {
-                    //console.error(err.message);
+                    reject(err.message);
+                }
+            });
+        });
+    }
+
+    getCharacter(membershipType, destinyMembershipId, characterId) {
+        this.options.path = `/Destiny2/${membershipType}/Profile/${destinyMembershipId}/character/${characterId}/`;
+        this.options.method = 'GET';
+        return promiseRequest(this.options, (res, resolve, reject) => {
+            const { statusCode } = res;
+            const contentType = res.headers['content-type'];
+            res.setEncoding('utf8');
+            let rawData = '';
+            res.on('data', (chunk) => { rawData += chunk; } );
+            res.on('end', () => {
+                try {
+                    resolve(rawData);
+                } catch (err) {
                     reject(err.message);
                 }
             });
