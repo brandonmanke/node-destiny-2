@@ -2,7 +2,6 @@
  * API Wrapper for Destiny 2, built with Node.js
  * @author Brandon Manke
  */
-const https = require('https');
 const promiseRequest = require('./lib/asyncHttps.js');
 
 class Destiny2API {
@@ -11,7 +10,7 @@ class Destiny2API {
         this.api = `https://www.bungie.net/Platform/Destiny2`;
         this.path = '/Platform/Destiny2';
         this.key = config.key;
-        this.userAgent = config.userAgent || https.globalAgent;
+        this.userAgent = config.userAgent || promiseRequest.globalAgent;
         this.oauthConfig = {
             id: config.oauthConfig.id,
             secret: config.oauthConfig.secret
@@ -95,6 +94,7 @@ class Destiny2API {
 
     /**
      * Get bungie net profile, based on membership id and filter by membership type
+     * ** This 404 as of right now **
      */
     getProfile(membershipType, destinyMembershipId) {
         this.options.path = `/Destiny2/${membershipType}/Profile/${destinyMembershipId}/`;
@@ -220,9 +220,16 @@ class Destiny2API {
         });
     }
 
-    // TODO post requests, seem to need oauth
-
-    // ====
+    /*  TODO post requests, some seem to need oauth, 
+     *  also TODO maybe change how promise requests works because a lot of copy pasting
+     *   
+     *   POST: /Destiny2/Actions/Items/TransferItem/
+     *   POST: /Destiny2/Actions/Items/EquipItem/
+     *   POST: /Destiny2/Actions/Items/EquipItems/
+     *   POST: /Destiny2/Actions/Items/SetLockState/
+     *   POST: /Destiny2/Actions/Items/InsertSocketPlug/ Preview - Not Ready for Release
+     *   POST: /Destiny2/Actions/Items/ActivateTalentNode/ Preview - Not Ready for Release 
+     */
 
     getPostGameCarnageReport(activityId) {
         this.options.path = `/Destiny2/Stats/PostGameCarnageReport/${activityId}/`;
@@ -516,7 +523,6 @@ class Destiny2API {
             });
         });
     }
-
 }
 
 module.exports = Destiny2API;
