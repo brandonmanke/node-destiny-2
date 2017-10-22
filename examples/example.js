@@ -1,10 +1,8 @@
-// manual test for now
-// will write unit tests once stable version exists
+// These examples are temporary
 // https://www.bungie.net/en/Help/Article/45481
 const Destiny2API = require('../index.js');
 const fs = require('fs');
-const config = JSON.parse(fs.readFileSync('../config/config.json'));
-//const https = require('https');
+const config = JSON.parse(fs.readFileSync('./config/config.json'));
 
 const destiny = new Destiny2API({
     key: config.apikey,
@@ -13,7 +11,7 @@ const destiny = new Destiny2API({
 
 destiny.getManifest()
     .then((res) => {
-        const data = JSON.parse(res);
+        const data = res.Response;
         console.log(data);
         console.log('\n\n');
     })
@@ -37,7 +35,7 @@ destiny.getManifest()
 
 destiny.searchPlayer(-1, 'Roflz1lla')
     .then((res) => {
-        const data = JSON.parse(res);
+        const data = res.Response;
         console.log(data);
         console.log('\n\n');
     })

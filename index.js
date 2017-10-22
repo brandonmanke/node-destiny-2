@@ -41,7 +41,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     //console.error(err.message);
                     reject(err.message);
@@ -64,7 +64,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     //console.error(err.message);
                     reject(err.message);
@@ -84,7 +84,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -107,7 +107,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -126,7 +126,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -145,7 +145,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -164,7 +164,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -188,7 +188,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -212,7 +212,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -242,7 +242,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -261,7 +261,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -283,7 +283,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -305,7 +305,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -327,7 +327,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -349,7 +349,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -368,7 +368,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -390,7 +390,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -412,7 +412,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -434,7 +434,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -456,7 +456,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -478,7 +478,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -497,7 +497,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -516,7 +516,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }

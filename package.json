@@ -4,7 +4,7 @@
   "description": "API Wrapper for Destiny 2 in Node.js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "Destiny",
@@ -16,5 +16,9 @@
     "Node.js"
   ],
   "author": "Brandon Manke",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^21.2.1"
+  },
+  "dependencies": {}
 }
