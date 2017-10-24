@@ -27,7 +27,7 @@ class Destiny2API {
     }
 
     /**
-     * Async GetManifest
+     * Gets current version of the Destiny API manifest
      * Links to sqlite database file, so I don't really know how to handle this
      */
     getManifest() {
@@ -73,7 +73,7 @@ class Destiny2API {
         });
     }
 
-    searchPlayer(membershipType, displayName) {
+    searchDestinyPlayer(membershipType, displayName) {
         this.options.path = `${this.path}/SearchDestinyPlayer/${membershipType}/${displayName}/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
@@ -94,10 +94,16 @@ class Destiny2API {
 
     /**
      * Get bungie net profile, based on membership id and filter by membership type
-     * ** This 404 as of right now **
+     * @param {Number} membershipType type of membership enum (-1: all, 0: none, 1: Xbox, 2: PS4, 3:Blizzard)
+     * @param {String} destinyMembershipId account id (platform specific)
+     * @param {Number[]} destinyComponentType enum to pass as query string, can contain multiple params
+     * See https://bungie-net.github.io/multi/schema_Destiny-DestinyComponentType.html#schema_Destiny-DestinyComponentType 
+     * for value definitions
      */
-    getProfile(membershipType, destinyMembershipId) {
-        this.options.path = `/Destiny2/${membershipType}/Profile/${destinyMembershipId}/`;
+    getProfile(membershipType, destinyMembershipId, destinyComponentType) {
+        this.options.path = `${this.path}/${membershipType}/Profile/${destinyMembershipId}/`;
+        const queryString = this.componentToQueryString(destinyComponentType);
+        this.options.path += queryString; // add query string to end
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -107,16 +113,16 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(JSON.parse(rawData));
+                    resolve(JSON.parse(rawData).Response); // response is cleaner
                 } catch (err) {
-                    reject(err.message);
+                    reject(err);
                 }
             });
         });
     }
 
     getCharacter(membershipType, destinyMembershipId, characterId) {
-        this.options.path = `/Destiny2/${membershipType}/Profile/${destinyMembershipId}/character/${characterId}/`;
+        this.options.path = `${this.path}/${membershipType}/Profile/${destinyMembershipId}/character/${characterId}/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -135,7 +141,7 @@ class Destiny2API {
     }
 
     getClanWeeklyRewardState(groupId) {
-        this.options.path = `/Destiny2/Clan/${groupId}/WeeklyRewardState/`;
+        this.options.path = `${this.path}/Clan/${groupId}/WeeklyRewardState/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -154,7 +160,7 @@ class Destiny2API {
     }
 
     getItem(membershipType, destinyMembershipId, itemInstanceId) {
-        this.options.path = `/Destiny2/${membershipType}/Profile/${destinyMembershipId}/Item/${itemInstanceId}/`;
+        this.options.path = `${this.path}/${membershipType}/Profile/${destinyMembershipId}/Item/${itemInstanceId}/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -178,7 +184,7 @@ class Destiny2API {
      */
     getVendors(membershipType, destinyMembershipId, characterId) {
         this.options.path = 
-            `/Destiny2/${membershipType}/Profile/${destinyMembershipId}/Character/${characterId}/Vendors/`;
+            `${this.path}/${membershipType}/Profile/${destinyMembershipId}/Character/${characterId}/Vendors/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -202,7 +208,7 @@ class Destiny2API {
      */
     getVendor(membershipType, destinyMembershipId, characterId, vendorHash) {
         this.options.path = 
-            `/Destiny2/${membershipType}/Profile/${destinyMembershipId}/Character/${characterId}/Vendors/${vendorHash}`;
+            `${this.path}/${membershipType}/Profile/${destinyMembershipId}/Character/${characterId}/Vendors/${vendorHash}`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -232,7 +238,7 @@ class Destiny2API {
      */
 
     getPostGameCarnageReport(activityId) {
-        this.options.path = `/Destiny2/Stats/PostGameCarnageReport/${activityId}/`;
+        this.options.path = `${this.path}/Stats/PostGameCarnageReport/${activityId}/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -251,7 +257,7 @@ class Destiny2API {
     }
 
     getHistoricalStatsDefinition() {
-        this.options.path = `/Destiny2/Stats/Definition/`;
+        this.options.path = `${this.path}/Stats/Definition/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -261,7 +267,8 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(JSON.parse(rawData));
+                    // returns undefined as of right now
+                    resolve(rawData);
                 } catch (err) {
                     reject(err.message);
                 }
@@ -273,7 +280,7 @@ class Destiny2API {
      * This endpoint is still in beta
      */
     getClanLeaderboards(groupId) {
-        this.options.path = `/Destiny2/Stats/Leaderboards/Clans/${groupId}/`;
+        this.options.path = `${this.path}/Stats/Leaderboards/Clans/${groupId}/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -295,7 +302,7 @@ class Destiny2API {
      * This endpoint is still in beta
      */
     getClanAggregateStats(groupId) {
-        this.options.path = `/Destiny2/Stats/AggregateClanStats/${groupId}/`;
+        this.options.path = `${this.path}/Stats/AggregateClanStats/${groupId}/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -317,7 +324,7 @@ class Destiny2API {
      * This endpoint is still in beta
      */
     getLeaderboards(membershipType, destinyMembershipId) {
-        this.options.path = `/Destiny2/${membershipType}/Account/${destinyMembershipId}/Stats/Leaderboards/`;
+        this.options.path = `${this.path}/${membershipType}/Account/${destinyMembershipId}/Stats/Leaderboards/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -339,7 +346,7 @@ class Destiny2API {
      * This endpoint is still in beta
      */
     getLeaderboardsForCharacter(membershipType, destinyMembershipId, characterId) {
-        this.options.path = `/Destiny2/Stats/Leaderboards/${membershipType}/${destinyMembershipId}/${characterId}/`;
+        this.options.path = `${this.path}/Stats/Leaderboards/${membershipType}/${destinyMembershipId}/${characterId}/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -358,7 +365,7 @@ class Destiny2API {
     }
 
     searchDestinyEntities(type, searchTerm) {
-        this.options.path = `/Destiny2/Armory/Search/${type}/${searchTerm}/`;
+        this.options.path = `${this.path}/Armory/Search/${type}/${searchTerm}/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -380,7 +387,7 @@ class Destiny2API {
      * This endpoint is still in beta
      */
     getHistoricalStats(membershipType, destinyMembershipId, characterId) {
-        this.options.path = `/Destiny2/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Stats/`;
+        this.options.path = `${this.path}/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Stats/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -402,7 +409,7 @@ class Destiny2API {
      * This endpoint is still in beta
      */
     getHistoricalStatsForAccount(membershipType, destinyMembershipId) {
-        this.options.path = `/Destiny2/${membershipType}/Account/${destinyMembershipId}/Stats/`;
+        this.options.path = `${this.path}/${membershipType}/Account/${destinyMembershipId}/Stats/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -424,7 +431,7 @@ class Destiny2API {
      * This endpoint is still in beta
      */
     getActivityHistory(membershipType, destinyMembershipId, characterId) {
-        this.options.path = `/Destiny2/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Stats/Activities/`;
+        this.options.path = `${this.path}/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Stats/Activities/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -446,7 +453,7 @@ class Destiny2API {
      * This endpoint is still in beta
      */
     getUniqueWeaponHistory(membershipType, destinyMembershipId, characterId) {
-        this.options.path = `/Destiny2/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Stats/UniqueWeapons/`;
+        this.options.path = `${this.path}/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Stats/UniqueWeapons/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -468,7 +475,7 @@ class Destiny2API {
      * This endpoint is still in beta
      */
     getDestinyAggregateActivityStats(membershipType, destinyMembershipId, characterId) {
-        this.options.path = `/Destiny2/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Stats/AggregateActivityStats/`;
+        this.options.path = `${this.path}/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Stats/AggregateActivityStats/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -487,7 +494,7 @@ class Destiny2API {
     }
 
     getPublicMilestoneContent(milestoneHash) {
-        this.options.path = `/Destiny2/Milestones/${milestoneHash}/Content/`;
+        this.options.path = `${this.path}/Milestones/${milestoneHash}/Content/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -506,7 +513,7 @@ class Destiny2API {
     }
 
     getPublicMilestones() {
-        this.options.path = `/Destiny2/Milestones/`;
+        this.options.path = `${this.path}/Milestones/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -522,6 +529,19 @@ class Destiny2API {
                 }
             });
         });
+    }
+
+    /**
+     * Formats component values into query string format
+     * @param {Number[]} destinyComponentType array of elements containing component enum values
+     */
+    componentToQueryString(destinyComponentType) {
+        let queryString = '?components=';
+        for (let i = 0; i < destinyComponentType.length - 1; i++) {
+            queryString += destinyComponentType[i] + ',';
+        }
+        queryString += destinyComponentType[destinyComponentType.length - 1];
+        return queryString;
     }
 }
 
