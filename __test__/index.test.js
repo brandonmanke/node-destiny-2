@@ -9,8 +9,7 @@ const config = JSON.parse(fs.readFileSync('./config/config.json'));
 
 // TODO oauth config is required for some reason
 const destiny = new Destiny2API({
-    key: config.apikey,
-    oauthConfig: {}
+    key: config.apikey
 });
 
 test('getManifest() - returns the API\'s manifest', () => {

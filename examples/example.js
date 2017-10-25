@@ -5,8 +5,7 @@ const fs = require('fs');
 const config = JSON.parse(fs.readFileSync('./config/config.json'));
 
 const destiny = new Destiny2API({
-    key: config.apikey,
-    oauthConfig: {}
+    key: config.apikey
 });
 
 destiny.getManifest()

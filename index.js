@@ -5,16 +5,18 @@
 const promiseRequest = require('./lib/asyncHttps.js');
 
 class Destiny2API {
-    constructor(config) {
+    constructor(config = {}) {
         this.host = 'www.bungie.net';
         this.api = `https://www.bungie.net/Platform/Destiny2`;
         this.path = '/Platform/Destiny2';
         this.key = config.key;
         this.userAgent = config.userAgent || promiseRequest.globalAgent;
         this.oauthConfig = {
-            id: config.oauthConfig.id,
-            secret: config.oauthConfig.secret
-        } || {};
+            id: typeof config.oauthConfig === 'undefined' ? null : config.oauthConfig.id,
+            secret: typeof config.oauthConfig === 'undefined' ? null : config.oauthConfig.secret
+        };
+        //this.oauthConfig.id = config.oauthConfig.id || null;
+        //this.oauthConfig.secret = config.oauthConfig.secret || null;
         this.options = {
             host: this.host,
             path: '',
@@ -23,7 +25,7 @@ class Destiny2API {
                 'User-Agent': this.userAgent,
                 'X-API-Key': this.key
             }
-        }
+        };
     }
 
     /**
