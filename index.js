@@ -12,11 +12,10 @@ class Destiny2API {
         this.key = config.key;
         this.userAgent = config.userAgent || promiseRequest.globalAgent;
         this.oauthConfig = {
+            // hopefully this isn't the only way to do this...
             id: typeof config.oauthConfig === 'undefined' ? null : config.oauthConfig.id,
             secret: typeof config.oauthConfig === 'undefined' ? null : config.oauthConfig.secret
         };
-        //this.oauthConfig.id = config.oauthConfig.id || null;
-        //this.oauthConfig.secret = config.oauthConfig.secret || null;
         this.options = {
             host: this.host,
             path: '',
@@ -30,7 +29,8 @@ class Destiny2API {
 
     /**
      * Gets current version of the Destiny API manifest
-     * Links to sqlite database file, so I don't really know how to handle this
+     * Links to sqlite database file containing information on items/entities etc.
+     * Useful for large/frequent requests for item information and other things.
      */
     getManifest() {
         this.options.path = '/Platform/Destiny2/Manifest/';
@@ -45,16 +45,18 @@ class Destiny2API {
                 try {
                     resolve(JSON.parse(rawData));
                 } catch (err) {
-                    //console.error(err.message);
                     reject(err.message);
                 }
             });
         });
     }
 
-    /**
-     * 
-     */
+   /**
+    * Gets a static definition of an entity. 
+    * If lots of requests are needed use db in manifest.
+    * @param {String} typeDefinition type/category of entity
+    * @param {String} hashIdentifier unique hashId tied to entity
+    */
     getDestinyEntityDefinition(typeDefinition, hashIdentifier) {
         this.options.path = `${this.path}/Manifest/${typeDefinition}/${hashIdentifier}/`;
         this.options.method = 'GET';
@@ -68,13 +70,17 @@ class Destiny2API {
                 try {
                     resolve(JSON.parse(rawData));
                 } catch (err) {
-                    //console.error(err.message);
                     reject(err.message);
                 }
             });
         });
     }
 
+    /**
+     * Returns list of memberships tied to account
+     * @param {Number} membershipType enum of values for specifying platform
+     * @param {String} displayName
+     */
     searchDestinyPlayer(membershipType, displayName) {
         this.options.path = `${this.path}/SearchDestinyPlayer/${membershipType}/${displayName}/`;
         this.options.method = 'GET';
@@ -86,7 +92,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(JSON.parse(rawData));
+                    resolve(JSON.parse(rawData).Response);
                 } catch (err) {
                     reject(err.message);
                 }
