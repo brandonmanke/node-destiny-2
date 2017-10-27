@@ -30,27 +30,12 @@ test('getDestinyEntityDefinition returns static definition of entity', () => {
             expect(res.Response).toHaveProperty('hash');
             expect(res.Response.hash).toEqual(2907129557);
         });
-})
-
-// may have to move this into one test itself due to all possible enum values
-test('getProfile returns user profile object', () => {
-    return destiny.getProfile(1, '4611686018452936098', [100])
-        .then((res) => {
-            expect(res).toHaveProperty('profile');
-            expect(res).toHaveProperty('itemComponents');
-            expect(res.profile).toHaveProperty('data');
-            expect(res.profile).toHaveProperty('privacy');
-            expect(res.profile.data).toHaveProperty('userInfo');
-            expect(res.profile.data).toHaveProperty('dateLastPlayed');
-            expect(res.profile.data).toHaveProperty('versionsOwned');
-            expect(res.profile.data).toHaveProperty('characterIds');
-        });
 });
 
 test('searchDestinyPlayer returns list of memberships tied to account', () => {
     return destiny.searchDestinyPlayer(-1, 'Roflz1lla')
         .then((res) => {
-            expect(res).toMatchObject([
+            expect(res.Response).toMatchObject([
                 {
                     iconPath: '/img/theme/destiny/icons/icon_xbl.png',
                     membershipType: 1,
@@ -58,5 +43,30 @@ test('searchDestinyPlayer returns list of memberships tied to account', () => {
                     displayName: 'Roflz1lla'
                 }
             ])
+        });
+});
+
+// may have to move this into one test itself due to all possible enum values
+test('getProfile returns user profile object', () => {
+    return destiny.getProfile(1, '4611686018452936098', [100])
+        .then((res) => {
+            expect(res.Response).toHaveProperty('profile');
+            expect(res.Response).toHaveProperty('itemComponents');
+            expect(res.Response.profile).toHaveProperty('data');
+            expect(res.Response.profile).toHaveProperty('privacy');
+            expect(res.Response.profile.data).toHaveProperty('userInfo');
+            expect(res.Response.profile.data).toHaveProperty('dateLastPlayed');
+            expect(res.Response.profile.data).toHaveProperty('versionsOwned');
+            expect(res.Response.profile.data).toHaveProperty('characterIds');
+        });
+});
+
+test('getCharacter returns character object', () => {
+    return destiny.getCharacter(1, '4611686018452936098', '2305843009278477570', [200])
+        .then((res) => {
+            expect(res.Response).toHaveProperty('character');
+            expect(res.Response.character).toHaveProperty('data');
+            expect(res.Response.character.data).toHaveProperty('characterId');
+            expect(res.Response.character.data.characterId).toEqual('2305843009278477570');
         });
 });

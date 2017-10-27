@@ -92,7 +92,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(JSON.parse(rawData).Response);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -121,7 +121,7 @@ class Destiny2API {
             res.on('data', (chunk) => { rawData += chunk; } );
             res.on('end', () => {
                 try {
-                    resolve(JSON.parse(rawData).Response); // response is cleaner
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err);
                 }
@@ -129,8 +129,16 @@ class Destiny2API {
         });
     }
 
-    getCharacter(membershipType, destinyMembershipId, characterId) {
+    /**
+     * Returns object containing character information
+     * @param {Number} membershipType
+     * @param {String} destinyMembershipId
+     * @param {String} characterId
+     */
+    getCharacter(membershipType, destinyMembershipId, characterId, destinyComponentType) {
         this.options.path = `${this.path}/${membershipType}/Profile/${destinyMembershipId}/character/${characterId}/`;
+        const queryString = this.componentToQueryString(destinyComponentType);
+        this.options.path += queryString;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
