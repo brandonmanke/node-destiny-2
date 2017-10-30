@@ -26,7 +26,7 @@ destiny.getDestinyEntityDefinition('DestinyInventoryItemDefinition', '2907129557
         console.log('\n\n');
     })
     .catch((error) => {
-        console.error(`getEntityDefinition Error ${error}`);
+        console.error(`getEntityDefinition Error: ${error}`);
     });
 
 destiny.searchDestinyPlayer(-1, 'Roflz1lla')
@@ -46,7 +46,7 @@ destiny.getProfile(1, '4611686018452936098', [100])
         console.log(res.Response);
     })
     .catch((error) => {
-        console.error(`getProfile Error ${error}`);
+        console.error(`getProfile Error: ${error}`);
     });
 
 // Looking up my character: charId: 2305843009278477570
@@ -56,7 +56,18 @@ destiny.getCharacter(1, '4611686018452936098', '2305843009278477570', [200])
         console.log('\n\n');
     })
     .catch((error) => {
-        console.log(`getCharacter Error ${error}`);
+        console.log(`getCharacter Error: ${error}`);
+    });
+
+// Decided to choose a random somewhat active clan
+// https://www.bungie.net/en/ClanV2?groupId=2114365
+destiny.getClanWeeklyRewardState('2114365')
+    .then((res) => {
+        console.log(res.Response);
+        console.log('\n\n');
+    })
+    .catch((error) => {
+        console.log(`getClanWeeklyRewardState Error: ${error}`);
     });
 
 

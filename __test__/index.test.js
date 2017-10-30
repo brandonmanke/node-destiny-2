@@ -70,3 +70,14 @@ test('getCharacter returns character object', () => {
             expect(res.Response.character.data.characterId).toEqual('2305843009278477570');
         });
 });
+
+test('getClanWeeklyRewardState returns the current clan progress', () => {
+    return destiny.getClanWeeklyRewardState('2114365')
+        .then((res) => {
+            expect(res.Response).toHaveProperty('milestoneHash');
+            expect(res.Response.milestoneHash).toEqual(4253138191); // this may change not sure
+            expect(res.Response).toHaveProperty('rewards');
+            expect(res.Response).toHaveProperty('startDate');
+            expect(res.Response).toHaveProperty('endDate');
+        });
+});
