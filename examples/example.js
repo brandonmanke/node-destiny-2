@@ -53,6 +53,8 @@ destiny.getProfile(1, '4611686018452936098', [100])
 destiny.getCharacter(1, '4611686018452936098', '2305843009278477570', [200])
     .then((res) => {
         console.log(res.Response);
+        const inventory = res.Response.inventory.data.items;
+        console.log(inventory);
         console.log('\n\n');
     })
     .catch((error) => {
@@ -70,4 +72,54 @@ destiny.getClanWeeklyRewardState('2114365')
         console.log(`getClanWeeklyRewardState Error: ${error}`);
     });
 
+// Get a specific items description from my inventory
+destiny.getItem(1, '4611686018452936098', '6917529034457803619', [300])
+    .then((res) => {
+        console.log(res.Response);
+        console.log('\n\n');
+    })
+    .catch((error) => {
+        console.log(`getItem Error: ${error}`);
+    });
+/*
+// gets list of current vendors - Endpoint not active as of yet
 
+destiny.getVendors(1, '4611686018452936098', '2305843009278477570', [402])
+    .then((res) => {
+        console.log(res);
+        console.log('\n\n');
+    })
+    .catch((error) => {
+         console.log(`getVendors Error: ${error}`);
+    })
+*/
+
+destiny.getHistoricalStatsDefinition()
+    .then((res) => {
+        console.log(res.ErrorCode); // Response is very long (should be 1)
+        console.log('\n\n');
+    })
+    .catch((error) => {
+        console.log(`getHistoricalStatsDefinition Error: ${error}`);
+    });
+
+// gets information on a specific public milestone
+destiny.getPublicMilestoneContent('4253138191')
+    .then((res) => {
+        console.log(res.Response);
+        console.log('\n\n');
+    })
+    .catch((error) => {
+        console.log(`getPublicMilestoneContent Error: ${error}`);
+    });
+
+// lists current public milestones
+destiny.getPublicMilestones()
+    .then((res) => {
+        //console.log(res.Response); // long list
+        console.log(res.ErrorCoder);
+        console.log('\n\n');
+    })
+    .catch((error) => {
+        console.log(`getPublicMilestones Error: ${error}`);
+    });

@@ -156,6 +156,10 @@ class Destiny2API {
         });
     }
 
+    /**
+     * Looks up clan progress based on groupId
+     * @param {String} groupId 
+     */
     getClanWeeklyRewardState(groupId) {
         this.options.path = `${this.path}/Clan/${groupId}/WeeklyRewardState/`;
         this.options.method = 'GET';
@@ -175,8 +179,13 @@ class Destiny2API {
         });
     }
 
-    getItem(membershipType, destinyMembershipId, itemInstanceId) {
+    /**
+     * Returns info about a specific item in a character's inventory
+     */
+    getItem(membershipType, destinyMembershipId, itemInstanceId, destinyComponentType) {
         this.options.path = `${this.path}/${membershipType}/Profile/${destinyMembershipId}/Item/${itemInstanceId}/`;
+        const queryString = this.componentToQueryString(destinyComponentType);
+        this.options.path += queryString;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -195,12 +204,14 @@ class Destiny2API {
     }
 
     /**
-     * This endpoint is not active as of yet
+     * This endpoint is not active as of yet (BETA)
      * Get available vendors info
      */
-    getVendors(membershipType, destinyMembershipId, characterId) {
+    getVendors(membershipType, destinyMembershipId, characterId, destinyComponentType) {
         this.options.path = 
             `${this.path}/${membershipType}/Profile/${destinyMembershipId}/Character/${characterId}/Vendors/`;
+        const queryString = this.componentToQueryString(destinyComponentType);
+        this.options.path += queryString;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -219,7 +230,7 @@ class Destiny2API {
     }
 
     /**
-     * This endpoint is not active as of yet
+     * This endpoint is not active as of yet (BETA)
      * Get specific vendor info based on vendorHash
      */
     getVendor(membershipType, destinyMembershipId, characterId, vendorHash) {
@@ -284,7 +295,7 @@ class Destiny2API {
             res.on('end', () => {
                 try {
                     // returns undefined as of right now
-                    resolve(rawData);
+                    resolve(JSON.parse(rawData));
                 } catch (err) {
                     reject(err.message);
                 }
@@ -380,8 +391,16 @@ class Destiny2API {
         });
     }
 
-    searchDestinyEntities(type, searchTerm) {
+    /**
+     * Gets a page list of items
+     * @param {String} type item type
+     * @param {String} searchTerm
+     * @param {Number[]} page that search goes to (starts at 0) (currently singleton array, but may change)
+     */
+    searchDestinyEntities(type, searchTerm, page) {
         this.options.path = `${this.path}/Armory/Search/${type}/${searchTerm}/`;
+        const queryString = this.componentToQueryString(page);
+        this.options.path += queryString;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -509,6 +528,10 @@ class Destiny2API {
         });
     }
 
+    /**
+     * Gets custom localized content for the milestone of the given hash, if it exists.
+     * @param {Number} milestoneHash
+     */
     getPublicMilestoneContent(milestoneHash) {
         this.options.path = `${this.path}/Milestones/${milestoneHash}/Content/`;
         this.options.method = 'GET';
@@ -528,6 +551,9 @@ class Destiny2API {
         });
     }
 
+    /**
+     * Gets public information about currently available Milestones.
+     */
     getPublicMilestones() {
         this.options.path = `${this.path}/Milestones/`;
         this.options.method = 'GET';

@@ -81,3 +81,46 @@ test('getClanWeeklyRewardState returns the current clan progress', () => {
             expect(res.Response).toHaveProperty('endDate');
         });
 });
+
+test('getItem return a object with a specific item\'s info from my inventory', () => {
+    return destiny.getItem(1, '4611686018452936098', '6917529034457803619', [300])
+        .then((res) => {
+            expect(res.Response).toHaveProperty('characterId');
+            expect(res.Response.characterId).toEqual('2305843009278477570');
+            expect(res.Response).toHaveProperty('instance');
+            expect(res.Response.instance.data.damageTypeHash).toEqual(3373582085); // not sure if needed
+        });
+});
+
+// getVendors (BETA) endpoint not active yet
+
+// getVendor (BETA) endpoint not active yet
+
+// getPostGameCarnageReport (TODO)
+
+test('getHistoricalStatsDefinition returns historical stats definitions', () => {
+    return destiny.getHistoricalStatsDefinition()
+        .then((res) => {
+            expect(res.ErrorCode).toEqual(1); // success
+        });
+});
+
+// getClanAggregateStats (BETA)
+
+// hash is a clan's weekly rewards progress
+test('getPublicMilestoneContent for the hash 4253138191', () => {
+    return destiny.getPublicMilestoneContent('4253138191')
+        .then((res) => {
+            expect(res.Response).toHaveProperty('about');
+            expect(res.Response).toHaveProperty('status');
+            expect(res.Response).toHaveProperty('tips');
+        });
+})
+
+// since these always change we just check error code for success
+test('getPublicMilestones returns list of current milestones', () => {
+    return destiny.getPublicMilestones()
+        .then((res) => {
+            expect(res.ErrorCode).toEqual(1);
+        });
+});
