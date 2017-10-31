@@ -25,6 +25,16 @@ test('Destiny2API config tests', () => {
     expect(testiny.key).toEqual(config.apikey);
 });
 
+test('toQueryString tests', () => {
+    // this is making sure it appends components query string
+    // correctly onto url, may refactor this
+    return destiny.getProfile(1, '4611686018452936098', [100, 101])
+        .then((res) => {
+            expect(destiny.options.path)
+                .toEqual('/Platform/Destiny2/1/Profile/4611686018452936098/?components=100,101');
+        });
+});
+
 test('getManifest returns the API\'s manifest', () => {
     //expect.assertions(1);
     return destiny.getManifest()

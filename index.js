@@ -25,8 +25,6 @@ class Destiny2API {
                 'X-API-Key': this.key
             }
         };
-        //toQueryString.bind(this)(this);
-        //formatJson.bind(this)();
     }
 
     /**
@@ -277,6 +275,8 @@ class Destiny2API {
         return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 }
+
+// Consider moving to another module
 
 /**
  * Callback for promise request, trys to format response to json
