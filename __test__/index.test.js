@@ -1,6 +1,7 @@
 /**
  * Jest unit tests
- * TODO - test rejections for each promise
+ * TODO - test rejections for formatJson
+ *      - test toQueryString function also
  */
 
 const Destiny2API = require('../index.js');
