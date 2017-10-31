@@ -94,6 +94,16 @@ destiny.getVendors(1, '4611686018452936098', '2305843009278477570', [402])
     })
 */
 
+// Gets one of my post game carnage reports
+destiny.getPostGameCarnageReport('328104460')
+    .then((res) => {
+        console.log(res.Response);
+        console.log('\n\n');
+    })
+    .catch((error) => {
+        console.log(`getPostGameCarnageReport Error: ${error}`);
+    });
+
 destiny.getHistoricalStatsDefinition()
     .then((res) => {
         console.log(res.ErrorCode); // Response is very long (should be 1)
@@ -101,6 +111,15 @@ destiny.getHistoricalStatsDefinition()
     })
     .catch((error) => {
         console.log(`getHistoricalStatsDefinition Error: ${error}`);
+    });
+
+// searching for MIDA Multi-tool weapon
+destiny.searchDestinyEntities('DestinyInventoryItemDefinition', 'MIDA Multi-Tool', [0])
+    .then((res) => {
+        console.log(res);
+    })
+    .catch((error) => {
+        console.log(`searchDestinyEntities Error: ${error}`);
     });
 
 // gets information on a specific public milestone

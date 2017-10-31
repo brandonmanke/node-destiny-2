@@ -83,6 +83,7 @@ class Destiny2API {
      */
     searchDestinyPlayer(membershipType, displayName) {
         this.options.path = `${this.path}/SearchDestinyPlayer/${membershipType}/${displayName}/`;
+        this.options.path = this.options.path.split(' ').join('%20');
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;
@@ -393,14 +394,14 @@ class Destiny2API {
 
     /**
      * Gets a page list of items
-     * @param {String} type item type
+     * @param {String} type item type see #schema_Destiny-DestinyItemType on api
      * @param {String} searchTerm
      * @param {Number[]} page that search goes to (starts at 0) (currently singleton array, but may change)
      */
     searchDestinyEntities(type, searchTerm, page) {
         this.options.path = `${this.path}/Armory/Search/${type}/${searchTerm}/`;
-        const queryString = this.componentToQueryString(page);
-        this.options.path += queryString;
+        this.options.path += `?page=${page}`;
+        this.options.path = this.options.path.split(' ').join('%20');
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => {
             const { statusCode } = res;

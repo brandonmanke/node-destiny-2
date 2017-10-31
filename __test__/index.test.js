@@ -1,6 +1,6 @@
 /**
  * Jest unit tests
- * TODO - right now test coverage is pretty low, will work on improving
+ * TODO - test rejections for each promise
  */
 
 const Destiny2API = require('../index.js');
@@ -9,6 +9,19 @@ const config = JSON.parse(fs.readFileSync('./config/config.json'));
 
 const destiny = new Destiny2API({
     key: config.apikey
+});
+
+test('Destiny2API empty config tests', () => {
+    const emptyDestiny = new Destiny2API();
+    expect(emptyDestiny.key).toEqual(undefined);
+});
+
+test('Destiny2API config tests', () => {
+    const testiny = new Destiny2API({
+        key: config.apikey
+    });
+    // not sure if this is redundant, may add other tests 
+    expect(testiny.key).toEqual(config.apikey);
 });
 
 test('getManifest returns the API\'s manifest', () => {
@@ -96,7 +109,28 @@ test('getItem return a object with a specific item\'s info from my inventory', (
 
 // getVendor (BETA) endpoint not active yet
 
-// getPostGameCarnageReport (TODO)
+test('getPostGameCarnageReport for activityId 328104460', () => {
+    return destiny.getPostGameCarnageReport('328104460')
+        .then((res) => {
+            expect(res.Response).toHaveProperty('period');
+            expect(res.Response).toHaveProperty('activityDetails');
+            expect(res.Response).toHaveProperty('entries');
+            expect(res.Response).toHaveProperty('teams');
+            // not sure if these tests are required but I guess it doesn't hurt
+            expect(res.Response.activityDetails.referenceId).toEqual(1720510574);
+            expect(res.Response.activityDetails.directorActivityHash).toEqual(3243161126);
+            expect(res.Response.activityDetails.instanceId).toEqual('328104460');
+        });
+});
+
+test('searchDestinyEntities returns page list for MIDA Multi-tool search', () => {
+    return destiny.searchDestinyEntities('DestinyInventoryItemDefinition', 'MIDA Multi-Tool', [0])
+        .then((res) => {
+            expect(res.ErrorCode).toEqual(1);
+            expect(res.Response).toHaveProperty('suggestedWords');
+            expect(res.Response).toHaveProperty('results');
+        });
+});
 
 test('getHistoricalStatsDefinition returns historical stats definitions', () => {
     return destiny.getHistoricalStatsDefinition()
