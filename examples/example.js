@@ -53,8 +53,6 @@ destiny.getProfile(1, '4611686018452936098', [100])
 destiny.getCharacter(1, '4611686018452936098', '2305843009278477570', [200])
     .then((res) => {
         console.log(res.Response);
-        const inventory = res.Response.inventory.data.items;
-        console.log(inventory);
         console.log('\n\n');
     })
     .catch((error) => {
@@ -114,9 +112,9 @@ destiny.getHistoricalStatsDefinition()
     });
 
 // searching for MIDA Multi-tool weapon
-destiny.searchDestinyEntities('DestinyInventoryItemDefinition', 'MIDA Multi-Tool', [0])
+destiny.searchDestinyEntities('DestinyInventoryItemDefinition', 'MIDA Multi-Tool', 0)
     .then((res) => {
-        console.log(res);
+        console.log(res.Response);
     })
     .catch((error) => {
         console.log(`searchDestinyEntities Error: ${error}`);
@@ -135,8 +133,7 @@ destiny.getPublicMilestoneContent('4253138191')
 // lists current public milestones
 destiny.getPublicMilestones()
     .then((res) => {
-        //console.log(res.Response); // long list
-        console.log(res.ErrorCoder);
+        console.log(res.ErrorCode);
         console.log('\n\n');
     })
     .catch((error) => {
