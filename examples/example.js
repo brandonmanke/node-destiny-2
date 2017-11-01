@@ -40,7 +40,6 @@ destiny.searchDestinyPlayer(-1, 'Roflz1lla')
     });
 
 // Look up bungie net profile
-
 destiny.getProfile(1, '4611686018452936098', [100])
     .then((res) => {
         console.log(res.Response);
@@ -112,7 +111,7 @@ destiny.getHistoricalStatsDefinition()
     });
 
 // searching for MIDA Multi-tool weapon
-destiny.searchDestinyEntities('DestinyInventoryItemDefinition', 'MIDA Multi-Tool', 0)
+destiny.searchDestinyEntities('DestinyInventoryItemDefinition', 'MIDA Multi-Tool', [0])
     .then((res) => {
         console.log(res.Response);
     })
@@ -139,3 +138,4 @@ destiny.getPublicMilestones()
     .catch((error) => {
         console.log(`getPublicMilestones Error: ${error}`);
     });
+

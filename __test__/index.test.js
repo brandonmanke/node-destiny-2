@@ -135,7 +135,7 @@ test('getPostGameCarnageReport for activityId 328104460', () => {
 });
 
 test('searchDestinyEntities returns page list for MIDA Multi-tool search', () => {
-    return destiny.searchDestinyEntities('DestinyInventoryItemDefinition', 'MIDA Multi-Tool', 0)
+    return destiny.searchDestinyEntities('DestinyInventoryItemDefinition', 'MIDA Multi-Tool', [0])
         .then((res) => {
             expect(res.ErrorCode).toEqual(1);
             expect(res.Response).toHaveProperty('suggestedWords');
