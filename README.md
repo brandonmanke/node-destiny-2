@@ -1,4 +1,4 @@
-# node-destiny-2 [![Build Status](https://travis-ci.org/brandonmanke/node-destiny-2.svg?branch=master)](https://travis-ci.org/brandonmanke/node-destiny-2)
+# node-destiny-2 [![Build Status](https://travis-ci.org/brandonmanke/node-destiny-2.svg?branch=master)](https://travis-ci.org/brandonmanke/node-destiny-2) [![codecov](https://codecov.io/gh/brandonmanke/node-destiny-2/branch/master/graph/badge.svg)](https://codecov.io/gh/brandonmanke/node-destiny-2)
 
 > :new_moon: Destiny 2 API Wrapper written in Node.js 
 
