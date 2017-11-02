@@ -152,10 +152,9 @@ test('getClanAggregateStats returns aggregated clan stats', () => {
     return destiny.getClanAggregateStats('206662')
         .then((res) => {
             expect(res.ErrorCode).toEqual(1);
-            console.log(res.Response);
             expect(res.Response.length).toEqual(44);
         });
-})
+});
 
 // hash is a clan's weekly rewards progress
 test('getPublicMilestoneContent for the hash 4253138191', () => {
