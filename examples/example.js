@@ -59,8 +59,8 @@ destiny.getCharacter(1, '4611686018452936098', '2305843009278477570', [200])
     });
 
 // Decided to choose a random somewhat active clan
-// https://www.bungie.net/en/ClanV2?groupId=2114365
-destiny.getClanWeeklyRewardState('2114365')
+// https://www.bungie.net/en/ClanV2?groupId=206662
+destiny.getClanWeeklyRewardState('206662')
     .then((res) => {
         console.log(res.Response);
         console.log('\n\n');
@@ -139,3 +139,21 @@ destiny.getPublicMilestones()
         console.log(`getPublicMilestones Error: ${error}`);
     });
 
+/*
+// empty response for now (endpoint not ready)
+destiny.getClanLeaderboards('206662')
+    .then((res) => {
+        console.log(res.Response);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+*/
+
+destiny.getClanAggregateStats('206662')
+    .then((res) => {
+        console.log(res);
+    })
+    .catch((error) => {
+        console.log(error);
+    });

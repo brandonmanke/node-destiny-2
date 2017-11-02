@@ -139,7 +139,6 @@ class Destiny2API {
     }
 
     /*  TODO post requests, some seem to need oauth, 
-     *  also TODO maybe change how promise requests works because a lot of copy pasting
      *   
      *   POST: /Destiny2/Actions/Items/TransferItem/
      *   POST: /Destiny2/Actions/Items/EquipItem/
@@ -173,9 +172,13 @@ class Destiny2API {
 
     /**
      * This endpoint is still in beta
+     * @param groupId
+     * @param modes {number[]} list of modes of which leaderboards to pull from
+     * See: #schema_Destiny-HistoricalStats-Definitions-DestinyActivityModeType in docs
      */
-    getClanAggregateStats(groupId) {
+    getClanAggregateStats(groupId, modes = []) {
         this.options.path = `${this.path}/Stats/AggregateClanStats/${groupId}/`;
+        toQueryString('modes', modes);
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
     }
@@ -281,7 +284,7 @@ class Destiny2API {
 
 /**
  * Callback for promise request, trys to format response to json
- * @param {object} res response object
+ * @param {Object} res response object
  * @param {function} resolve
  * @param {function} reject
  */
