@@ -1,7 +1,6 @@
 /**
  * Jest unit tests
  * TODO - test rejections for formatJson
- *      - test toQueryString function also
  */
 
 const Destiny2API = require('../index.js');
@@ -26,8 +25,7 @@ test('Destiny2API config tests', () => {
 });
 
 test('toQueryString tests', () => {
-    // this is making sure it appends components query string
-    // correctly onto url, may refactor this
+    // this is making sure it appends multiple components as params to the query string (may refactor this)
     return destiny.getProfile(1, '4611686018452936098', [100, 101])
         .then((res) => {
             expect(destiny.options.path)
@@ -96,7 +94,7 @@ test('getCharacter returns character object', () => {
 });
 
 test('getClanWeeklyRewardState returns the current clan progress', () => {
-    return destiny.getClanWeeklyRewardState('2114365')
+    return destiny.getClanWeeklyRewardState('206662')
         .then((res) => {
             expect(res.Response).toHaveProperty('milestoneHash');
             expect(res.Response.milestoneHash).toEqual(4253138191); // this may change not sure
@@ -135,7 +133,7 @@ test('getPostGameCarnageReport for activityId 328104460', () => {
 });
 
 test('searchDestinyEntities returns page list for MIDA Multi-tool search', () => {
-    return destiny.searchDestinyEntities('DestinyInventoryItemDefinition', 'MIDA Multi-Tool', 0)
+    return destiny.searchDestinyEntities('DestinyInventoryItemDefinition', 'MIDA Multi-Tool', [0])
         .then((res) => {
             expect(res.ErrorCode).toEqual(1);
             expect(res.Response).toHaveProperty('suggestedWords');
@@ -150,7 +148,13 @@ test('getHistoricalStatsDefinition returns historical stats definitions', () => 
         });
 });
 
-// getClanAggregateStats (BETA)
+test('getClanAggregateStats returns aggregated clan stats', () => {
+    return destiny.getClanAggregateStats('206662')
+        .then((res) => {
+            expect(res.ErrorCode).toEqual(1);
+            expect(res.Response.length).toEqual(44);
+        });
+});
 
 // hash is a clan's weekly rewards progress
 test('getPublicMilestoneContent for the hash 4253138191', () => {

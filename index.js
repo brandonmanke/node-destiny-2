@@ -72,7 +72,7 @@ class Destiny2API {
      */
     getProfile(membershipType, destinyMembershipId, destinyComponentType) {
         this.options.path = `${this.path}/${membershipType}/Profile/${destinyMembershipId}/`;
-        const queryString = toQueryString(destinyComponentType);
+        const queryString = toQueryString('components', destinyComponentType);
         this.options.path += queryString; // add query string to end
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
@@ -83,10 +83,11 @@ class Destiny2API {
      * @param {number} membershipType
      * @param {string} destinyMembershipId
      * @param {string} characterId
+     * @param {number[]} destinyComponentType enum passed to queryString
      */
     getCharacter(membershipType, destinyMembershipId, characterId, destinyComponentType) {
         this.options.path = `${this.path}/${membershipType}/Profile/${destinyMembershipId}/character/${characterId}/`;
-        const queryString = toQueryString(destinyComponentType);
+        const queryString = toQueryString('components', destinyComponentType);
         this.options.path += queryString;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
@@ -107,7 +108,7 @@ class Destiny2API {
      */
     getItem(membershipType, destinyMembershipId, itemInstanceId, destinyComponentType) {
         this.options.path = `${this.path}/${membershipType}/Profile/${destinyMembershipId}/Item/${itemInstanceId}/`;
-        const queryString = toQueryString(destinyComponentType);
+        const queryString = toQueryString('components', destinyComponentType);
         this.options.path += queryString;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
@@ -120,7 +121,7 @@ class Destiny2API {
     getVendors(membershipType, destinyMembershipId, characterId, destinyComponentType) {
         this.options.path = 
             `${this.path}/${membershipType}/Profile/${destinyMembershipId}/Character/${characterId}/Vendors/`;
-        const queryString = toQueryString(destinyComponentType);
+        const queryString = toQueryString('components', destinyComponentType);
         this.options.path += queryString;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
@@ -138,7 +139,6 @@ class Destiny2API {
     }
 
     /*  TODO post requests, some seem to need oauth, 
-     *  also TODO maybe change how promise requests works because a lot of copy pasting
      *   
      *   POST: /Destiny2/Actions/Items/TransferItem/
      *   POST: /Destiny2/Actions/Items/EquipItem/
@@ -172,9 +172,13 @@ class Destiny2API {
 
     /**
      * This endpoint is still in beta
+     * @param groupId
+     * @param modes {number[]} list of modes of which leaderboards to pull from
+     * See: #schema_Destiny-HistoricalStats-Definitions-DestinyActivityModeType in docs
      */
-    getClanAggregateStats(groupId) {
+    getClanAggregateStats(groupId, modes = []) {
         this.options.path = `${this.path}/Stats/AggregateClanStats/${groupId}/`;
+        toQueryString('modes', modes);
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
     }
@@ -205,7 +209,7 @@ class Destiny2API {
      */
     searchDestinyEntities(type, searchTerm, page) {
         this.options.path = `${this.path}/Armory/Search/${type}/${searchTerm}/`;
-        this.options.path += `?page=${page}`;
+        this.options.path += toQueryString('page', page);
         this.options.path = this.options.path.split(' ').join('%20');
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
@@ -280,7 +284,7 @@ class Destiny2API {
 
 /**
  * Callback for promise request, trys to format response to json
- * @param {object} res response object
+ * @param {Object} res response object
  * @param {function} resolve
  * @param {function} reject
  */
@@ -300,15 +304,19 @@ const formatJson = (res, resolve, reject) => {
 }
 
 /**
- * Formats component values into query string format
- * @param {number[]} destinyComponentType array of elements containing component enum values
+ * NOTE: this forces to take an array as input even when certain queryStrings only take 1 param
+ * I am not sure this is the best decision for paramters.
+ *
+ * Formats array of values into query string format
+ * @param {string} name of queryString
+ * @param {number[]} params array of elements containing query string params
  */
-const toQueryString = (destinyComponentType) => {
-    let queryString = '?components=';
-    for (let i = 0; i < destinyComponentType.length - 1; i++) {
-        queryString += destinyComponentType[i] + ',';
+const toQueryString = (name, params) => {
+    let queryString = `?${name}=`;
+    for (let i = 0; i < params.length - 1; i++) {
+        queryString += params[i] + ',';
     }
-    queryString += destinyComponentType[destinyComponentType.length - 1];
+    queryString += params[params.length - 1];
     return queryString;
 }
 
