@@ -1,6 +1,7 @@
 // These examples are temporary
 // https://www.bungie.net/en/Help/Article/45481
-const Destiny2API = require('../index.js');
+
+const Destiny2API = require('../index.js'); // you would use 'node-destiny2' instead
 const fs = require('fs');
 const config = JSON.parse(fs.readFileSync('./config/config.json'));
 
@@ -146,7 +147,7 @@ destiny.getClanLeaderboards('206662')
         console.log(res.Response);
     })
     .catch((error) => {
-        console.log(error);
+        console.log(`getClanLeaderboards Error: ${error}`);
     });
 */
 

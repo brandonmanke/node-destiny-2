@@ -23,13 +23,10 @@ test('Destiny2API config tests', () => {
     expect(testiny.key).toEqual(config.apikey);
 });
 
-test('toQueryString tests', () => {
-    // this is making sure it appends multiple components as params to the query string (may refactor this)
-    return destiny.getProfile(1, '4611686018452936098', [100, 101])
-        .then((res) => {
-            expect(destiny.options.path)
-                .toEqual('/Platform/Destiny2/1/Profile/4611686018452936098/?components=100,101');
-        });
+test('toQueryString test', () => {
+    const toQueryString = require('../lib/format-querystring.js');
+    const queryString = toQueryString({ components: [100, 101], page: [2], modes: [12,43] });
+    expect(queryString).toEqual('?components=100,101&page=2&modes=12,43');
 });
 
 test('getManifest returns the API\'s manifest', () => {
