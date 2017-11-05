@@ -2,7 +2,6 @@
  * Jest unit tests
  * TODO - test rejections for formatJson
  */
-
 const Destiny2API = require('../index.js');
 const fs = require('fs');
 const config = JSON.parse(fs.readFileSync('./config/config.json'));
