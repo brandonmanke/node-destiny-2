@@ -29,6 +29,15 @@ test('toQueryString test', () => {
     expect(queryString).toEqual('?components=100,101&page=2&modes=12,43');
 });
 
+test('async https rejection test', () => {
+    const promiseRequest = require('../lib/async-https.js');
+    return promiseRequest({}, (res, resolve, reject) => {})
+        .catch((error) => {
+            // not sure if this test is that useful
+            expect(error).toEqual('connect ECONNREFUSED 127.0.0.1:443')
+        });
+});
+
 test('getManifest returns the API\'s manifest', () => {
     //expect.assertions(1);
     return destiny.getManifest()

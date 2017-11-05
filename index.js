@@ -177,7 +177,7 @@ class Destiny2API {
     /**
      * This endpoint is still in beta
      * @param groupId
-     * @param modes {number[]} list of modes of which leaderboards to pull from
+     * @param {number[]} modes of which leaderboards to pull from
      * See: #schema_Destiny-HistoricalStats-Definitions-DestinyActivityModeType in docs
      */
     getClanAggregateStats(groupId, modes = []) {
@@ -200,6 +200,10 @@ class Destiny2API {
 
     /**
      * This endpoint is still in beta
+     * @param {number} membershipType
+     * @param {string} destinyMembershipId
+     * @param {string} characterId
+     * @param {Object} queryStrings (valid queryString params: maxtop, modes, statid)
      */
     getLeaderboardsForCharacter(membershipType, destinyMembershipId, characterId, queryStrings = {}) {
         this.options.path = `${this.path}/Stats/Leaderboards/${membershipType}/${destinyMembershipId}/${characterId}/`;

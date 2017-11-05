@@ -79,6 +79,7 @@ destiny.getItem(1, '4611686018452936098', '6917529034457803619', [300])
     .catch((error) => {
         console.log(`getItem Error: ${error}`);
     });
+
 /*
 // gets list of current vendors - Endpoint not active as of yet
 
