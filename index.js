@@ -4,6 +4,7 @@
  */
 const promiseRequest = require('./lib/async-https.js');
 const toQueryString = require('./lib/format-querystring.js');
+const formatJson = require('./lib/format-json.js');
 
 class Destiny2API {
     constructor(config = {}) {
@@ -290,29 +291,6 @@ class Destiny2API {
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
     }
-}
-
-// Consider moving to another module
-
-/**
- * Callback for promise request, trys to format response to json
- * @param {Object} res response object
- * @param {function} resolve
- * @param {function} reject
- */
-const formatJson = (res, resolve, reject) => {
-    const { statusCode } = res;
-    const contentType = res.headers['content-type'];
-    res.setEncoding('utf8');
-    let rawData = '';
-    res.on('data', (chunk) => { rawData += chunk; } );
-    res.on('end', () => {
-        try {
-            resolve(JSON.parse(rawData));
-        } catch (err) {
-            reject(err.message);
-        }
-    });
 }
 
 module.exports = Destiny2API;

@@ -153,6 +153,14 @@ test('getHistoricalStatsDefinition returns historical stats definitions', () => 
         });
 });
 
+test('getClanLeaderboards test', () => {
+    destiny.getClanLeaderboards('206662')
+        .then((res) => {
+            expect(res.ErrorCode).toEqual(1);
+            // since response is {} for now I won't test anything else
+        });
+});
+
 test('getClanAggregateStats returns aggregated clan stats', () => {
     return destiny.getClanAggregateStats('206662')
         .then((res) => {

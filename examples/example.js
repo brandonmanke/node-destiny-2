@@ -141,7 +141,7 @@ destiny.getPublicMilestones()
         console.log(`getPublicMilestones Error: ${error}`);
     });
 
-/*
+
 // empty response for now (endpoint not ready)
 destiny.getClanLeaderboards('206662')
     .then((res) => {
@@ -150,7 +150,6 @@ destiny.getClanLeaderboards('206662')
     .catch((error) => {
         console.log(`getClanLeaderboards Error: ${error}`);
     });
-*/
 
 destiny.getClanAggregateStats('206662')
     .then((res) => {
