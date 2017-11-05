@@ -1,6 +1,7 @@
 // These examples are temporary
 // https://www.bungie.net/en/Help/Article/45481
-const Destiny2API = require('../index.js');
+
+const Destiny2API = require('../index.js'); // you would use 'node-destiny2' instead
 const fs = require('fs');
 const config = JSON.parse(fs.readFileSync('./config/config.json'));
 
@@ -78,6 +79,7 @@ destiny.getItem(1, '4611686018452936098', '6917529034457803619', [300])
     .catch((error) => {
         console.log(`getItem Error: ${error}`);
     });
+
 /*
 // gets list of current vendors - Endpoint not active as of yet
 
@@ -139,16 +141,15 @@ destiny.getPublicMilestones()
         console.log(`getPublicMilestones Error: ${error}`);
     });
 
-/*
+
 // empty response for now (endpoint not ready)
 destiny.getClanLeaderboards('206662')
     .then((res) => {
         console.log(res.Response);
     })
     .catch((error) => {
-        console.log(error);
+        console.log(`getClanLeaderboards Error: ${error}`);
     });
-*/
 
 destiny.getClanAggregateStats('206662')
     .then((res) => {

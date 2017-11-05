@@ -2,7 +2,6 @@
  * Jest unit tests
  * TODO - test rejections for formatJson
  */
-
 const Destiny2API = require('../index.js');
 const fs = require('fs');
 const config = JSON.parse(fs.readFileSync('./config/config.json'));
@@ -24,12 +23,18 @@ test('Destiny2API config tests', () => {
     expect(testiny.key).toEqual(config.apikey);
 });
 
-test('toQueryString tests', () => {
-    // this is making sure it appends multiple components as params to the query string (may refactor this)
-    return destiny.getProfile(1, '4611686018452936098', [100, 101])
-        .then((res) => {
-            expect(destiny.options.path)
-                .toEqual('/Platform/Destiny2/1/Profile/4611686018452936098/?components=100,101');
+test('toQueryString test', () => {
+    const toQueryString = require('../lib/format-querystring.js');
+    const queryString = toQueryString({ components: [100, 101], page: [2], modes: [12,43] });
+    expect(queryString).toEqual('?components=100,101&page=2&modes=12,43');
+});
+
+test('async https rejection test', () => {
+    const promiseRequest = require('../lib/async-https.js');
+    return promiseRequest({}, (res, resolve, reject) => {})
+        .catch((error) => {
+            // not sure if this test is that useful
+            expect(error).toEqual('connect ECONNREFUSED 127.0.0.1:443')
         });
 });
 
@@ -145,6 +150,14 @@ test('getHistoricalStatsDefinition returns historical stats definitions', () => 
     return destiny.getHistoricalStatsDefinition()
         .then((res) => {
             expect(res.ErrorCode).toEqual(1); // success
+        });
+});
+
+test('getClanLeaderboards test', () => {
+    destiny.getClanLeaderboards('206662')
+        .then((res) => {
+            expect(res.ErrorCode).toEqual(1);
+            // since response is {} for now I won't test anything else
         });
 });
 
