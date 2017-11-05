@@ -1,3 +1,5 @@
 {
-    "apikey": "insert-your-key-here"
+    "apikey": "insert-your-key-here",
+    "oauth_client_id": "client_id_here",
+    "oauth_secret_id": "secret_id_here"
 }

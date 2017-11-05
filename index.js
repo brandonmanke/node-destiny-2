@@ -14,7 +14,8 @@ class Destiny2API {
         this.oauthConfig = {
             // hopefully this isn't the only way to do this...
             id: typeof config.oauthConfig === 'undefined' ? null : config.oauthConfig.id,
-            secret: typeof config.oauthConfig === 'undefined' ? null : config.oauthConfig.secret
+            secret: typeof config.oauthConfig === 'undefined' ? null : config.oauthConfig.secret,
+            url: 'htts://www.bungie.net/en/OAuth/Authorize/'
         };
         this.options = {
             host: this.host,
@@ -186,7 +187,7 @@ class Destiny2API {
     /**
      * This endpoint is still in beta
      */
-    getLeaderboards(membershipType, destinyMembershipId) {
+    getLeaderboards(membershipType, destinyMembershipId, queryString = {}) {
         this.options.path = `${this.path}/${membershipType}/Account/${destinyMembershipId}/Stats/Leaderboards/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
@@ -195,7 +196,7 @@ class Destiny2API {
     /**
      * This endpoint is still in beta
      */
-    getLeaderboardsForCharacter(membershipType, destinyMembershipId, characterId) {
+    getLeaderboardsForCharacter(membershipType, destinyMembershipId, characterId, queryString = {}) {
         this.options.path = `${this.path}/Stats/Leaderboards/${membershipType}/${destinyMembershipId}/${characterId}/`;
         this.options.method = 'GET';
         return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
