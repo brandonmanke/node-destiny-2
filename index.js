@@ -42,7 +42,7 @@ class Destiny2API {
     getManifest() {
         this.options.path = '/Platform/Destiny2/Manifest/';
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
+        return promiseRequest(this.options,
                              (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
