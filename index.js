@@ -15,8 +15,12 @@ class Destiny2API {
         this.userAgent = config.userAgent || promiseRequest.globalAgent;
         this.oauthConfig = {
             // hopefully this isn't the only way to do this...
-            id: typeof config.oauthConfig === 'undefined' ? null : config.oauthConfig.id,
-            secret: typeof config.oauthConfig === 'undefined' ? null : config.oauthConfig.secret,
+            id: typeof config.oauthConfig === 'undefined' 
+                ? null 
+                : config.oauthConfig.id,
+            secret: typeof config.oauthConfig === 'undefined' 
+                ? null 
+                : config.oauthConfig.secret,
             url: 'htts://www.bungie.net/en/OAuth/Authorize/'
         };
         this.options = {
@@ -38,7 +42,8 @@ class Destiny2API {
     getManifest() {
         this.options.path = '/Platform/Destiny2/Manifest/';
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options,
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
    /**
@@ -50,7 +55,8 @@ class Destiny2API {
     getDestinyEntityDefinition(typeDefinition, hashIdentifier) {
         this.options.path = `${this.path}/Manifest/${typeDefinition}/${hashIdentifier}/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
@@ -62,15 +68,17 @@ class Destiny2API {
         this.options.path = `${this.path}/SearchDestinyPlayer/${membershipType}/${displayName}/`;
         this.options.path = this.options.path.split(' ').join('%20');
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
      * Get bungie net profile, based on membership id and filter by membership type
-     * @param {number} membershipType type of membership enum (-1: all, 0: none, 1: Xbox, 2: PS4, 3:Blizzard)
+     * @param {number} membershipType type of membership enum 
+                       (-1: all, 0: none, 1: Xbox, 2: PS4, 3:Blizzard)
      * @param {string} destinyMembershipId account id (platform specific)
      * @param {number[]} destinyComponentType enum to pass as query string, can contain multiple params
-     * See https://bungie-net.github.io/multi/schema_Destiny-DestinyComponentType.html#schema_Destiny-DestinyComponentType 
+     * See #schema_Destiny-DestinyComponentType 
      * for value definitions
      */
     getProfile(membershipType, destinyMembershipId, destinyComponentType) {
@@ -80,7 +88,8 @@ class Destiny2API {
         const queryString = toQueryString({ components: destinyComponentType });
         this.options.path += queryString; // add query string to end
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
@@ -91,11 +100,13 @@ class Destiny2API {
      * @param {number[]} destinyComponentType enum passed to queryString
      */
     getCharacter(membershipType, destinyMembershipId, characterId, destinyComponentType) {
-        this.options.path = `${this.path}/${membershipType}/Profile/${destinyMembershipId}/character/${characterId}/`;
+        this.options.path = `${this.path}/${membershipType}/Profile/` +
+                            `${destinyMembershipId}/character/${characterId}/`;
         const queryString = toQueryString({ components: destinyComponentType });
         this.options.path += queryString;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
@@ -105,18 +116,21 @@ class Destiny2API {
     getClanWeeklyRewardState(groupId) {
         this.options.path = `${this.path}/Clan/${groupId}/WeeklyRewardState/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
      * Returns info about a specific item in a character's inventory
      */
     getItem(membershipType, destinyMembershipId, itemInstanceId, destinyComponentType) {
-        this.options.path = `${this.path}/${membershipType}/Profile/${destinyMembershipId}/Item/${itemInstanceId}/`;
+        this.options.path = `${this.path}/${membershipType}/Profile/` +
+                            `${destinyMembershipId}/Item/${itemInstanceId}/`;
         const queryString = toQueryString({ components: destinyComponentType });
         this.options.path += queryString;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
@@ -124,12 +138,13 @@ class Destiny2API {
      * Get available vendors info
      */
     getVendors(membershipType, destinyMembershipId, characterId, destinyComponentType) {
-        this.options.path = 
-            `${this.path}/${membershipType}/Profile/${destinyMembershipId}/Character/${characterId}/Vendors/`;
+        this.options.path = `${this.path}/${membershipType}/Profile/` +
+                            `${destinyMembershipId}/Character/${characterId}/Vendors/`;
         const queryString = toQueryString({ components: destinyComponentType });
         this.options.path += queryString;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
@@ -137,10 +152,11 @@ class Destiny2API {
      * Get specific vendor info based on vendorHash
      */
     getVendor(membershipType, destinyMembershipId, characterId, vendorHash) {
-        this.options.path = 
-            `${this.path}/${membershipType}/Profile/${destinyMembershipId}/Character/${characterId}/Vendors/${vendorHash}`;
+        this.options.path = `${this.path}/${membershipType}/Profile/` +
+                            `${destinyMembershipId}/Character/${characterId}/Vendors/${vendorHash}`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /*  TODO post requests, some seem to need oauth, 
@@ -156,14 +172,16 @@ class Destiny2API {
     getPostGameCarnageReport(activityId) {
         this.options.path = `${this.path}/Stats/PostGameCarnageReport/${activityId}/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     // returns undefined as of right now
     getHistoricalStatsDefinition() {
         this.options.path = `${this.path}/Stats/Definition/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
@@ -172,7 +190,8 @@ class Destiny2API {
     getClanLeaderboards(groupId) {
         this.options.path = `${this.path}/Stats/Leaderboards/Clans/${groupId}/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
@@ -185,18 +204,21 @@ class Destiny2API {
         this.options.path = `${this.path}/Stats/AggregateClanStats/${groupId}/`;
         const queryString = toQueryString({ modes: modes });
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
      * This endpoint is still in beta
      */
     getLeaderboards(membershipType, destinyMembershipId, queryString = {}) {
-        this.options.path = `${this.path}/${membershipType}/Account/${destinyMembershipId}/Stats/Leaderboards/`;
+        this.options.path = `${this.path}/${membershipType}/Account/` + 
+                            `${destinyMembershipId}/Stats/Leaderboards/`;
         const qString = toQueryString(queryStrings);
         this.options.path += qString;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
@@ -207,34 +229,40 @@ class Destiny2API {
      * @param {Object} queryStrings (valid queryString params: maxtop, modes, statid)
      */
     getLeaderboardsForCharacter(membershipType, destinyMembershipId, characterId, queryStrings = {}) {
-        this.options.path = `${this.path}/Stats/Leaderboards/${membershipType}/${destinyMembershipId}/${characterId}/`;
+        this.options.path = `${this.path}/Stats/Leaderboards/` +
+                            `${membershipType}/${destinyMembershipId}/${characterId}/`;
         const qString = toQueryString(queryStrings); // multiple params can be passed
         this.options.path += qString;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
      * Gets a page list of items
      * @param {string} type item type see #schema_Destiny-DestinyItemType on api
      * @param {string} searchTerm
-     * @param {number[]} page that search goes to (starts at 0) (currently singleton array, but may change)
+     * @param {number[]} page that search goes to (starts at 0) 
+     * (currently singleton array, but may change)
      */
     searchDestinyEntities(type, searchTerm, page) {
         this.options.path = `${this.path}/Armory/Search/${type}/${searchTerm}/`;
         const queryString = toQueryString({ page: page });
         this.options.path = this.options.path.split(' ').join('%20');
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
      * This endpoint is still in beta
      */
     getHistoricalStats(membershipType, destinyMembershipId, characterId) {
-        this.options.path = `${this.path}/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Stats/`;
+        this.options.path = `${this.path}/${membershipType}/Account/` +
+                            `${destinyMembershipId}/Character/${characterId}/Stats/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
@@ -243,34 +271,44 @@ class Destiny2API {
     getHistoricalStatsForAccount(membershipType, destinyMembershipId) {
         this.options.path = `${this.path}/${membershipType}/Account/${destinyMembershipId}/Stats/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
      * This endpoint is still in beta
      */
     getActivityHistory(membershipType, destinyMembershipId, characterId) {
-        this.options.path = `${this.path}/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Stats/Activities/`;
+        this.options.path = `${this.path}/${membershipType}/Account/` +
+                            `${destinyMembershipId}/Character/` +
+                            `${characterId}/Stats/Activities/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
      * This endpoint is still in beta
      */
     getUniqueWeaponHistory(membershipType, destinyMembershipId, characterId) {
-        this.options.path = `${this.path}/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Stats/UniqueWeapons/`;
+        this.options.path = `${this.path}/${membershipType}/Account/` +
+                            `${destinyMembershipId}/Character/` +
+                            `${characterId}/Stats/UniqueWeapons/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
      * This endpoint is still in beta
      */
     getDestinyAggregateActivityStats(membershipType, destinyMembershipId, characterId) {
-        this.options.path = `${this.path}/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Stats/AggregateActivityStats/`;
+        this.options.path = `${this.path}/${membershipType}/Account/` +
+                            `${destinyMembershipId}/Character/` +
+                            `${characterId}/Stats/AggregateActivityStats/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
@@ -280,7 +318,8 @@ class Destiny2API {
     getPublicMilestoneContent(milestoneHash) {
         this.options.path = `${this.path}/Milestones/${milestoneHash}/Content/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
@@ -289,7 +328,8 @@ class Destiny2API {
     getPublicMilestones() {
         this.options.path = `${this.path}/Milestones/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options, 
+                             (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 }
 

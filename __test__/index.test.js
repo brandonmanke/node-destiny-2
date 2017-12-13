@@ -115,7 +115,8 @@ test('getItem return a object with a specific item\'s info from my inventory', (
             expect(res.Response).toHaveProperty('characterId');
             expect(res.Response.characterId).toEqual('2305843009278477570');
             expect(res.Response).toHaveProperty('instance');
-            expect(res.Response.instance.data.damageTypeHash).toEqual(3373582085); // not sure if needed
+            // not sure if needed
+            expect(res.Response.instance.data.damageTypeHash).toEqual(3373582085);
         });
 });
 
