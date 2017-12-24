@@ -3,7 +3,7 @@
 
 const Destiny2API = require('../index.js'); // you would use 'node-destiny2' instead
 const fs = require('fs');
-const config = JSON.parse(fs.readFileSync('./config/config.json'));
+const config = JSON.parse(fs.readFileSync('../config/config.json'));
 
 const destiny = new Destiny2API({
     key: config.apikey
@@ -146,6 +146,7 @@ destiny.getPublicMilestones()
 destiny.getClanLeaderboards('206662')
     .then((res) => {
         console.log(res.Response);
+        console.log('\n\n');
     })
     .catch((error) => {
         console.log(`getClanLeaderboards Error: ${error}`);
@@ -154,6 +155,62 @@ destiny.getClanLeaderboards('206662')
 destiny.getClanAggregateStats('206662')
     .then((res) => {
         console.log(res);
+        console.log('\n\n');
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+// modes 7 is allpve and groups 2 is weapons only 
+// will add enums to make this much easier to work with
+destiny.getHistoricalStats(1, 
+                          '4611686018452936098', 
+                          '2305843009278477570', 
+                          { modes: [7], groups: [2] })
+    .then((res) => {
+        console.log(res);
+        console.log('\n\n');
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+destiny.getHistoricalStatsForAccount(1, '4611686018452936098')
+    .then((res) => {
+        console.log(res);
+        console.log('\n\n');
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+// get activity history for a character, return 5 rows, and filter for only PvE
+destiny.getActivityHistory(1, 
+                           '4611686018452936098', 
+                           '2305843009278477570', 
+                           { count: [5], mode: [7] })
+    .then((res) => {
+        console.log(res);
+        console.log('\n\n');
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+destiny.getUniqueWeaponHistory(1, '4611686018452936098', '2305843009278477570')
+    .then((res) => {
+        console.log(res);
+        console.log('\n\n');
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+
+destiny.getDestinyAggregateActivityStats(1, '4611686018452936098', '2305843009278477570')
+    .then((res) => {
+        console.log(res);
+        console.log('\n\n');
     })
     .catch((error) => {
         console.log(error);

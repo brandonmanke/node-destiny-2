@@ -147,6 +147,57 @@ test('searchDestinyEntities returns page list for MIDA Multi-tool search', () =>
         });
 });
 
+test('getHistoricalStats returns object containing historical stats for account for allPvE', () => {
+    return destiny.getHistoricalStats(1, 
+                                      '4611686018452936098', 
+                                      '2305843009278477570', 
+                                      { modes: [7] })
+        .then((res) => {
+            expect(res.ErrorCode).toEqual(1);
+            expect(res.Response).toHaveProperty('allPvE');
+            expect(res.Response.allPvE).toHaveProperty('allTime');
+        });
+});
+
+test('getHistoricalStatsForAccount returns aggregated stats for account', () => {
+    return destiny.getHistoricalStatsForAccount(1, '4611686018452936098')
+        .then((res) => {
+            expect(res.ErrorCode).toEqual(1);
+            expect(res.Response).toHaveProperty('mergedDeletedCharacters');
+            expect(res.Response).toHaveProperty('mergedAllCharacters');
+            expect(res.Response).toHaveProperty('characters');
+        });
+});
+
+test('getActivityHistory returns object containing 5 most recent PvE activities for char', () => {
+    return destiny.getActivityHistory(1, 
+                           '4611686018452936098', 
+                           '2305843009278477570', 
+                           { count: [5], mode: [7] })
+        .then((res) => {
+            expect(res.ErrorCode).toEqual(1);
+            expect(res.Response).toHaveProperty('activities');
+            expect(res.Response.activities.length).toEqual(5);
+        });
+});
+
+test('getUniqueWeaponHistory returns object w/ weapon stats for specific character' , () => {
+    return destiny.getUniqueWeaponHistory(1, '4611686018452936098', '2305843009278477570')
+        .then((res) => {
+            expect(res.ErrorCode).toEqual(1);
+            expect(res.Response).toHaveProperty('weapons');
+        });
+});
+
+test('getDestinyAggregateActivityStats returns all stats for all activities done by char', () => {
+    return destiny.getDestinyAggregateActivityStats(1, '4611686018452936098', '2305843009278477570')
+        .then((res) => {
+            expect(res.ErrorCode).toEqual(1);
+            expect(res.Response).toHaveProperty('activities');
+            expect(res.Response.activities.length).toEqual(34); // unsure if this changes
+        })
+});
+
 test('getHistoricalStatsDefinition returns historical stats definitions', () => {
     return destiny.getHistoricalStatsDefinition()
         .then((res) => {
