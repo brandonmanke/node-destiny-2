@@ -255,40 +255,66 @@ class Destiny2API {
     }
 
     /**
-     * This endpoint is still in beta
+     * Gets historical stats for specific character
+     * See #operation_get_Destiny2-GetHistoricalStats for more details
+     * @param {number} membershipType
+     * @param {string} destinyMembershipId
+     * @param {string} characterId
+     * @param {Object} queryStrings (dayend, daystart, groups, modes, period type)
      */
-    getHistoricalStats(membershipType, destinyMembershipId, characterId) {
+    getHistoricalStats(membershipType, destinyMembershipId, characterId, queryStrings = {}) {
         this.options.path = `${this.path}/${membershipType}/Account/` +
                             `${destinyMembershipId}/Character/${characterId}/Stats/`;
+        const qString = toQueryString(queryStrings);
+        this.options.path += qString;
         this.options.method = 'GET';
         return promiseRequest(this.options, 
                              (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
-     * This endpoint is still in beta
+     * Gets historical stats for entire account (collection of all characters stats)
+     * This is only for the specified platform (Xbox, PS4, PC) because Bungie treats each
+     * as a seperate account.
+     * See #operation_get_Destiny2-GetHistoricalStatsForAccount
+     * @param {number} membershipType
+     * @param {string} destinyMembershipId
+     * @param {number[]} filter groups in response (optional query string values)
      */
-    getHistoricalStatsForAccount(membershipType, destinyMembershipId) {
+    getHistoricalStatsForAccount(membershipType, destinyMembershipId, groups = []) {
         this.options.path = `${this.path}/${membershipType}/Account/${destinyMembershipId}/Stats/`;
+        const qString = toQueryString({ groups: groups });
+        this.options.path += qString;
         this.options.method = 'GET';
         return promiseRequest(this.options, 
                              (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
-     * This endpoint is still in beta
+     * Gets activity history stats for indicated character.
+     * See #operation_get_Destiny2-GetActivityHistory
+     * @param {number} membershipType
+     * @param {string} destinyMembershipId
+     * @param {string} characterId
+     * @param {Object} queryStrings (count, mode, page)
      */
-    getActivityHistory(membershipType, destinyMembershipId, characterId) {
+    getActivityHistory(membershipType, destinyMembershipId, characterId, queryStrings = {}) {
         this.options.path = `${this.path}/${membershipType}/Account/` +
                             `${destinyMembershipId}/Character/` +
                             `${characterId}/Stats/Activities/`;
+        const qString = toQueryString(queryStrings);
+        this.options.path += qString;
         this.options.method = 'GET';
         return promiseRequest(this.options, 
                              (res, resolve, reject) => formatJson(res, resolve, reject));
     }
 
     /**
-     * This endpoint is still in beta
+     * Gets stats about specific weapon history
+     * See #operation_get_Destiny2-GetUniqueWeaponHistory
+     * @param {number} membershipType
+     * @param {string} destinyMembershipId
+     * @param {string} characterId
      */
     getUniqueWeaponHistory(membershipType, destinyMembershipId, characterId) {
         this.options.path = `${this.path}/${membershipType}/Account/` +
@@ -300,7 +326,11 @@ class Destiny2API {
     }
 
     /**
-     * This endpoint is still in beta
+     * Gets aggregated statistics of all activities character has participated in
+     * See #operation_get_Destiny2-GetDestinyAggregateActivityStats
+     * @param {number} membershipType
+     * @param {string} destinyMembershipId
+     * @param {string} characterId
      */
     getDestinyAggregateActivityStats(membershipType, destinyMembershipId, characterId) {
         this.options.path = `${this.path}/${membershipType}/Account/` +
