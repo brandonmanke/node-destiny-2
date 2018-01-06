@@ -3,6 +3,7 @@ sudo: false
 node_js:
 - 6.11.5
 before_install:
+- ls
 - openssl aes-256-cbc -K $encrypted_174cea7b8050_key -iv $encrypted_174cea7b8050_iv
   -in config/config.json.enc -out config/config.json -d
 install:

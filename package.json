@@ -1,6 +1,6 @@
 {
   "name": "node-destiny-2",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "API Wrapper for Destiny 2 in Node.js",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,11 @@
     "Async",
     "Node.js"
   ],
-  "author": "Brandon Manke",
+  "author": {
+    "name": "Brandon Manke",
+    "email": "manke.brandon@gmail.com"
+  },
+  "homepage": "https://github.com/brandonmanke/node-destiny-2",
   "license": "MIT",
   "devDependencies": {
     "codecov": "^3.0.0",

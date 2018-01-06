@@ -8,20 +8,40 @@ This project is still in early stages of development. The Destiny 2 API is also 
 
 ## Getting Started
 
-TODO
+Super simple to set up.
+
+```JavaScript
+// Getting API Manifest Example
+const Destiny2API = require('node-destiny-2');
+const destiny = new Destiny2API({
+  key: 'your-api-key'
+});
+destiny.getManifest()
+  .then(res => console.log(`Manifest: ${res.Response}`))
+  .catch(err => console.log(`Error: ${err}`));
+```
 
 ### Installation
 
-TODO
+Install from NPM with: 
 
-### Example
+`npm install node-destiny-2`
+
+
+### Examples
 
 TODO
 
 ### Documentation
 
+For further reading on the API documentation see the [Official Destiny 2 API Documentation](https://github.com/Bungie-net/api).
+
 TODO
 
 ## Contributing
 
-TODO
+If you see a feature that may need to be added, feel free to send a pull request. Feel free to fix an issue or file an issue of your own. I will set up a `CONTRIBUTING.md` eventually for code style and a little more information on creating pull requests. 
+
+## License
+
+The code in this repository is licensed under the [MIT License](LICENSE). Unless otherwise specified by 3rd party software.
