@@ -1,0 +1,6 @@
+# unnecessary folders for package
+config/
+coverage/
+docs/
+examples/
+
