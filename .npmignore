@@ -1,6 +1,7 @@
-# unnecessary folders for package
+# unnecessary files & folders for package
 config/
 coverage/
 docs/
 examples/
-
+__test__/
+.travis.yml
