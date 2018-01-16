@@ -19,6 +19,10 @@
     "name": "Brandon Manke",
     "email": "manke.brandon@gmail.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brandonmanke/node-destiny-2.git"
+  },
   "homepage": "https://github.com/brandonmanke/node-destiny-2",
   "license": "MIT",
   "devDependencies": {
