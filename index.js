@@ -21,7 +21,7 @@ class Destiny2API {
             secret: typeof config.oauthConfig === 'undefined' 
                 ? null 
                 : config.oauthConfig.secret,
-            url: 'htts://www.bungie.net/en/OAuth/Authorize/'
+            url: 'https://www.bungie.net/en/OAuth/Authorize/'
         };
         this.options = {
             host: this.host,
