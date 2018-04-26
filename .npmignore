@@ -6,3 +6,4 @@ examples/
 __test__/
 .travis.yml
 yarn.lock
+*.log
