@@ -10,73 +10,73 @@ const destiny = new Destiny2API({
 });
 
 destiny.getManifest()
-    .then((res) => {
+    .then(res => {
         const data = res.Response;
         console.log(data);
         console.log('\n\n');
     })
-    .catch((error) => {
+    .catch(err => {
         console.error(`Get Manifest Error: ${error}`);
     });
 
 // Looking up sunshot item definition
 destiny.getDestinyEntityDefinition('DestinyInventoryItemDefinition', '2907129557')
-    .then((res) => {
+    .then(res => {
         const data = res.Response;
         console.log(data);
         console.log('\n\n');
     })
-    .catch((error) => {
+    .catch(err => {
         console.error(`getEntityDefinition Error: ${error}`);
     });
 
 destiny.searchDestinyPlayer(-1, 'Roflz1lla')
-    .then((res) => {
+    .then(res => {
         const data = res.Response;
         console.log(data);
         console.log('\n\n');
     })
-    .catch((error) => {
+    .catch(err => {
         console.error(`searchPlayer Error: ${error}`);
     });
 
 // Look up bungie net profile
 destiny.getProfile(1, '4611686018452936098', [100])
-    .then((res) => {
+    .then(res => {
         console.log(res.Response);
     })
-    .catch((error) => {
+    .catch(err => {
         console.error(`getProfile Error: ${error}`);
     });
 
 // Looking up my character: charId: 2305843009278477570
 destiny.getCharacter(1, '4611686018452936098', '2305843009278477570', [200])
-    .then((res) => {
+    .then(res => {
         console.log(res.Response);
         console.log('\n\n');
     })
-    .catch((error) => {
+    .catch(err => {
         console.log(`getCharacter Error: ${error}`);
     });
 
 // Decided to choose a random somewhat active clan
 // https://www.bungie.net/en/ClanV2?groupId=206662
 destiny.getClanWeeklyRewardState('206662')
-    .then((res) => {
+    .then(res => {
         console.log(res.Response);
         console.log('\n\n');
     })
-    .catch((error) => {
+    .catch(err => {
         console.log(`getClanWeeklyRewardState Error: ${error}`);
     });
 
 // Get a specific items description from my inventory
 destiny.getItem(1, '4611686018452936098', '6917529034457803619', [300])
-    .then((res) => {
+    .then(res => {
         console.log(res.Response);
         console.log('\n\n');
     })
-    .catch((error) => {
+    .catch(err => {
         console.log(`getItem Error: ${error}`);
     });
 
@@ -84,81 +84,81 @@ destiny.getItem(1, '4611686018452936098', '6917529034457803619', [300])
 // gets list of current vendors - Endpoint not active as of yet
 
 destiny.getVendors(1, '4611686018452936098', '2305843009278477570', [402])
-    .then((res) => {
-        console.log(res);
+    .then(res => {
+        console.logres;
         console.log('\n\n');
     })
-    .catch((error) => {
+    .catch(err => {
          console.log(`getVendors Error: ${error}`);
     })
 */
 
 // Gets one of my post game carnage reports
 destiny.getPostGameCarnageReport('328104460')
-    .then((res) => {
+    .then(res => {
         console.log(res.Response);
         console.log('\n\n');
     })
-    .catch((error) => {
+    .catch(err => {
         console.log(`getPostGameCarnageReport Error: ${error}`);
     });
 
 destiny.getHistoricalStatsDefinition()
-    .then((res) => {
+    .then(res => {
         console.log(res.ErrorCode); // Response is very long (should be 1)
         console.log('\n\n');
     })
-    .catch((error) => {
+    .catch(err => {
         console.log(`getHistoricalStatsDefinition Error: ${error}`);
     });
 
 // searching for MIDA Multi-tool weapon
 destiny.searchDestinyEntities('DestinyInventoryItemDefinition', 'MIDA Multi-Tool', [0])
-    .then((res) => {
+    .then(res => {
         console.log(res.Response);
     })
-    .catch((error) => {
+    .catch(err => {
         console.log(`searchDestinyEntities Error: ${error}`);
     });
 
 // gets information on a specific public milestone
 destiny.getPublicMilestoneContent('4253138191')
-    .then((res) => {
+    .then(res => {
         console.log(res.Response);
         console.log('\n\n');
     })
-    .catch((error) => {
+    .catch(err => {
         console.log(`getPublicMilestoneContent Error: ${error}`);
     });
 
 // lists current public milestones
 destiny.getPublicMilestones()
-    .then((res) => {
+    .then(res => {
         console.log(res.ErrorCode);
         console.log('\n\n');
     })
-    .catch((error) => {
+    .catch(err => {
         console.log(`getPublicMilestones Error: ${error}`);
     });
 
 
 // empty response for now (endpoint not ready)
 destiny.getClanLeaderboards('206662')
-    .then((res) => {
+    .then(res => {
         console.log(res.Response);
         console.log('\n\n');
     })
-    .catch((error) => {
+    .catch(err => {
         console.log(`getClanLeaderboards Error: ${error}`);
     });
 
 destiny.getClanAggregateStats('206662')
-    .then((res) => {
-        console.log(res);
+    .then(res => {
+        console.logres;
         console.log('\n\n');
     })
-    .catch((error) => {
-        console.log(error);
+    .catch(err => {
+        console.logerr;
     });
 
 // modes 7 is allpve and groups 2 is weapons only 
@@ -167,21 +167,21 @@ destiny.getHistoricalStats(1,
                           '4611686018452936098', 
                           '2305843009278477570', 
                           { modes: [7], groups: [2] })
-    .then((res) => {
-        console.log(res);
+    .then(res => {
+        console.logres;
         console.log('\n\n');
     })
-    .catch((error) => {
-        console.log(error);
+    .catch(err => {
+        console.logerr;
     });
 
 destiny.getHistoricalStatsForAccount(1, '4611686018452936098')
-    .then((res) => {
-        console.log(res);
+    .then(res => {
+        console.logres;
         console.log('\n\n');
     })
-    .catch((error) => {
-        console.log(error);
+    .catch(err => {
+        console.logerr;
     });
 
 // get activity history for a character, return 5 rows, and filter for only PvE
@@ -189,29 +189,29 @@ destiny.getActivityHistory(1,
                            '4611686018452936098', 
                            '2305843009278477570', 
                            { count: [5], mode: [7] })
-    .then((res) => {
-        console.log(res);
+    .then(res => {
+        console.logres;
         console.log('\n\n');
     })
-    .catch((error) => {
-        console.log(error);
+    .catch(err => {
+        console.logerr;
     });
 
 destiny.getUniqueWeaponHistory(1, '4611686018452936098', '2305843009278477570')
-    .then((res) => {
-        console.log(res);
+    .then(res => {
+        console.logres;
         console.log('\n\n');
     })
-    .catch((error) => {
-        console.log(error);
+    .catch(err => {
+        console.logerr;
     });
 
 
 destiny.getDestinyAggregateActivityStats(1, '4611686018452936098', '2305843009278477570')
-    .then((res) => {
-        console.log(res);
+    .then(res => {
+        console.logres;
         console.log('\n\n');
     })
-    .catch((error) => {
-        console.log(error);
+    .catch(err => {
+        console.logerr;
     });

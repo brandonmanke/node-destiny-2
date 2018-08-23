@@ -41,8 +41,7 @@ class Destiny2API {
     getManifest() {
         this.options.path = '/Platform/Destiny2/Manifest/';
         this.options.method = 'GET';
-        return promiseRequest(this.options,
-                             (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
    /**
@@ -54,8 +53,7 @@ class Destiny2API {
     getDestinyEntityDefinition(typeDefinition, hashIdentifier) {
         this.options.path = `${this.path}/Manifest/${typeDefinition}/${hashIdentifier}/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -67,8 +65,7 @@ class Destiny2API {
         this.options.path = `${this.path}/SearchDestinyPlayer/${membershipType}/${displayName}/`;
         this.options.path = this.options.path.split(' ').join('%20');
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -84,8 +81,7 @@ class Destiny2API {
         const queryString = toQueryString({ components: destinyComponentType });
         this.options.path += queryString;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -101,8 +97,7 @@ class Destiny2API {
         const queryString = toQueryString({ components: destinyComponentType });
         this.options.path += queryString;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -112,8 +107,7 @@ class Destiny2API {
     getClanWeeklyRewardState(groupId) {
         this.options.path = `${this.path}/Clan/${groupId}/WeeklyRewardState/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -129,8 +123,7 @@ class Destiny2API {
         const queryString = toQueryString({ components: destinyComponentType });
         this.options.path += queryString;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -143,8 +136,7 @@ class Destiny2API {
         const queryString = toQueryString({ components: destinyComponentType });
         this.options.path += queryString;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -155,8 +147,7 @@ class Destiny2API {
         this.options.path = `${this.path}/${membershipType}/Profile/` +
                             `${destinyMembershipId}/Character/${characterId}/Vendors/${vendorHash}`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /*  TODO post requests, some seem to need oauth, 
@@ -176,8 +167,7 @@ class Destiny2API {
     getPostGameCarnageReport(activityId) {
         this.options.path = `${this.path}/Stats/PostGameCarnageReport/${activityId}/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -186,8 +176,7 @@ class Destiny2API {
     getHistoricalStatsDefinition() {
         this.options.path = `${this.path}/Stats/Definition/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -196,8 +185,7 @@ class Destiny2API {
     getClanLeaderboards(groupId) {
         this.options.path = `${this.path}/Stats/Leaderboards/Clans/${groupId}/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -210,8 +198,7 @@ class Destiny2API {
         this.options.path = `${this.path}/Stats/AggregateClanStats/${groupId}/`;
         const queryString = toQueryString({ modes: modes });
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -223,8 +210,7 @@ class Destiny2API {
         const qString = toQueryString(queryStrings);
         this.options.path += qString;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -240,8 +226,7 @@ class Destiny2API {
         const qString = toQueryString(queryStrings); // multiple params can be passed
         this.options.path += qString;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -256,8 +241,7 @@ class Destiny2API {
         const queryString = toQueryString({ page: page });
         this.options.path = this.options.path.split(' ').join('%20');
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -274,8 +258,7 @@ class Destiny2API {
         const qString = toQueryString(queryStrings);
         this.options.path += qString;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -292,8 +275,7 @@ class Destiny2API {
         const qString = toQueryString({ groups: groups });
         this.options.path += qString;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -311,8 +293,7 @@ class Destiny2API {
         const qString = toQueryString(queryStrings);
         this.options.path += qString;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -327,8 +308,7 @@ class Destiny2API {
                             `${destinyMembershipId}/Character/` +
                             `${characterId}/Stats/UniqueWeapons/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -343,8 +323,7 @@ class Destiny2API {
                             `${destinyMembershipId}/Character/` +
                             `${characterId}/Stats/AggregateActivityStats/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -354,8 +333,7 @@ class Destiny2API {
     getPublicMilestoneContent(milestoneHash) {
         this.options.path = `${this.path}/Milestones/${milestoneHash}/Content/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 
     /**
@@ -364,8 +342,7 @@ class Destiny2API {
     getPublicMilestones() {
         this.options.path = `${this.path}/Milestones/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options, 
-                              (res, resolve, reject) => formatJson(res, resolve, reject));
+        return promiseRequest(this.options).then(res => formatJson(res));
     }
 }
 
