@@ -17,10 +17,29 @@ const Destiny2API = require('node-destiny-2');
 const destiny = new Destiny2API({
   key: 'your-api-key'
 });
+```
 
+Get Destiny Manifest Example:
+
+With `.then()`/`.catch()`:
+
+```JavaScript
 destiny.getManifest()
   .then(res => console.log(`Manifest: ${res.Response}`))
   .catch(err => console.log(`Error: ${err}`));
+```
+
+
+With `async`/`await`:
+
+```JavaScript
+try {
+    const res = await destiny.getManifest();
+    console.log(`Manifest: ${res.Response}`);
+} catch (err) {
+    console.log(`Error: ${err}`);
+    throw err;
+}
 ```
 
 ### Installation
