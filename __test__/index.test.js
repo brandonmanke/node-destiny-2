@@ -6,6 +6,8 @@ const Destiny2API = require('../index.js');
 const fs = require('fs');
 const config = JSON.parse(fs.readFileSync('./config/config.json'));
 
+jest.setTimeout(10000);
+
 const destiny = new Destiny2API({
     key: config.apikey
 });
@@ -19,7 +21,7 @@ test('Destiny2API config tests', () => {
     const testiny = new Destiny2API({
         key: config.apikey
     });
-    // not sure if this is redundant, may add other tests 
+    // not sure if this is redundant, may add other tests
     expect(testiny.key).toEqual(config.apikey);
 });
 
@@ -132,7 +134,7 @@ test('getPostGameCarnageReport for activityId 328104460', () => {
             expect(res.Response).toHaveProperty('entries');
             expect(res.Response).toHaveProperty('teams');
             // not sure if these tests are required but I guess it doesn't hurt
-            expect(res.Response.activityDetails.referenceId).toEqual(1720510574);
+            expect(res.Response.activityDetails.referenceId).toEqual(1583254851);
             expect(res.Response.activityDetails.directorActivityHash).toEqual(3243161126);
             expect(res.Response.activityDetails.instanceId).toEqual('328104460');
         });
@@ -148,9 +150,9 @@ test('searchDestinyEntities returns page list for MIDA Multi-tool search', () =>
 });
 
 test('getHistoricalStats returns object containing historical stats for account for allPvE', () => {
-    return destiny.getHistoricalStats(1, 
-                                      '4611686018452936098', 
-                                      '2305843009278477570', 
+    return destiny.getHistoricalStats(1,
+                                      '4611686018452936098',
+                                      '2305843009278477570',
                                       { modes: [7] })
         .then((res) => {
             expect(res.ErrorCode).toEqual(1);
@@ -170,9 +172,9 @@ test('getHistoricalStatsForAccount returns aggregated stats for account', () => 
 });
 
 test('getActivityHistory returns object containing 5 most recent PvE activities for char', () => {
-    return destiny.getActivityHistory(1, 
-                           '4611686018452936098', 
-                           '2305843009278477570', 
+    return destiny.getActivityHistory(1,
+                           '4611686018452936098',
+                           '2305843009278477570',
                            { count: [5], mode: [7] })
         .then((res) => {
             expect(res.ErrorCode).toEqual(1);
