@@ -73,7 +73,7 @@ class Destiny2API {
      * @param {number} membershipType type of membership enum 
                        (-1: all, 0: none, 1: Xbox, 2: PS4, 3:Blizzard)
      * @param {string} destinyMembershipId account id (platform specific)
-     * @param {number[]} destinyComponentType enum to pass as query string, can contain multiple params
+     * @param {number[]} destinyComponentType enum to pass as query string, i.e. [201, 300, ...]
      * See #schema_Destiny-DestinyComponentType for value definitions
      */
     getProfile(membershipType, destinyMembershipId, destinyComponentType) {
@@ -145,13 +145,14 @@ class Destiny2API {
      */
     getVendor(membershipType, destinyMembershipId, characterId, vendorHash) {
         this.options.path = `${this.path}/${membershipType}/Profile/` +
-                            `${destinyMembershipId}/Character/${characterId}/Vendors/${vendorHash}`;
+                            `${destinyMembershipId}/Character/${characterId}` +
+                            `/Vendors/${vendorHash}`;
         this.options.method = 'GET';
         return promiseRequest(this.options).then(res => formatJson(res));
     }
 
-    /*  TODO post requests, some seem to need oauth, 
-     *   
+    /* 
+     *   TODO post requests, need oauth
      *   POST: /Destiny2/Actions/Items/TransferItem/
      *   POST: /Destiny2/Actions/Items/EquipItem/
      *   POST: /Destiny2/Actions/Items/EquipItems/
@@ -204,10 +205,10 @@ class Destiny2API {
     /**
      * This endpoint is still in beta
      */
-    getLeaderboards(membershipType, destinyMembershipId, queryString = {}) {
+    getLeaderboards(membershipType, destinyMembershipId, queryStr = {}) {
         this.options.path = `${this.path}/${membershipType}/Account/` + 
                             `${destinyMembershipId}/Stats/Leaderboards/`;
-        const qString = toQueryString(queryStrings);
+        const qString = toQueryString(queryStr);
         this.options.path += qString;
         this.options.method = 'GET';
         return promiseRequest(this.options).then(res => formatJson(res));
@@ -220,10 +221,10 @@ class Destiny2API {
      * @param {string} characterId
      * @param {Object} queryStrings (valid queryString params: maxtop, modes, statid)
      */
-    getLeaderboardsForCharacter(membershipType, destinyMembershipId, characterId, queryStrings = {}) {
+    getLeaderboardsForCharacter(membershipType, destinyMembershipId, characterId, queryStr = {}) {
         this.options.path = `${this.path}/Stats/Leaderboards/` +
                             `${membershipType}/${destinyMembershipId}/${characterId}/`;
-        const qString = toQueryString(queryStrings); // multiple params can be passed
+        const qString = toQueryString(queryStr); // multiple params can be passed
         this.options.path += qString;
         this.options.method = 'GET';
         return promiseRequest(this.options).then(res => formatJson(res));
@@ -252,10 +253,10 @@ class Destiny2API {
      * @param {string} characterId
      * @param {Object} queryStrings (dayend, daystart, groups, modes, period type)
      */
-    getHistoricalStats(membershipType, destinyMembershipId, characterId, queryStrings = {}) {
+    getHistoricalStats(membershipType, destinyMembershipId, characterId, queryStr = {}) {
         this.options.path = `${this.path}/${membershipType}/Account/` +
                             `${destinyMembershipId}/Character/${characterId}/Stats/`;
-        const qString = toQueryString(queryStrings);
+        const qString = toQueryString(queryStr);
         this.options.path += qString;
         this.options.method = 'GET';
         return promiseRequest(this.options).then(res => formatJson(res));
@@ -286,11 +287,11 @@ class Destiny2API {
      * @param {string} characterId
      * @param {Object} queryStrings (count, mode, page)
      */
-    getActivityHistory(membershipType, destinyMembershipId, characterId, queryStrings = {}) {
+    getActivityHistory(membershipType, destinyMembershipId, characterId, queryStr = {}) {
         this.options.path = `${this.path}/${membershipType}/Account/` +
                             `${destinyMembershipId}/Character/` +
                             `${characterId}/Stats/Activities/`;
-        const qString = toQueryString(queryStrings);
+        const qString = toQueryString(queryStr);
         this.options.path += qString;
         this.options.method = 'GET';
         return promiseRequest(this.options).then(res => formatJson(res));

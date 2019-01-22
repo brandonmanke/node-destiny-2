@@ -16,7 +16,7 @@ destiny.getManifest()
         console.log('\n\n');
     })
     .catch(err => {
-        console.error(`Get Manifest Error: ${error}`);
+        console.error(`Get Manifest Error: ${err}`);
     });
 
 // Looking up sunshot item definition
@@ -27,7 +27,7 @@ destiny.getDestinyEntityDefinition('DestinyInventoryItemDefinition', '2907129557
         console.log('\n\n');
     })
     .catch(err => {
-        console.error(`getEntityDefinition Error: ${error}`);
+        console.error(`getEntityDefinition Error: ${err}`);
     });
 
 destiny.searchDestinyPlayer(-1, 'Roflz1lla')
@@ -37,7 +37,7 @@ destiny.searchDestinyPlayer(-1, 'Roflz1lla')
         console.log('\n\n');
     })
     .catch(err => {
-        console.error(`searchPlayer Error: ${error}`);
+        console.error(`searchPlayer Error: ${err}`);
     });
 
 // Look up bungie net profile
@@ -46,7 +46,7 @@ destiny.getProfile(1, '4611686018452936098', [100])
         console.log(res.Response);
     })
     .catch(err => {
-        console.error(`getProfile Error: ${error}`);
+        console.error(`getProfile Error: ${err}`);
     });
 
 // Looking up my character: charId: 2305843009278477570
@@ -56,7 +56,7 @@ destiny.getCharacter(1, '4611686018452936098', '2305843009278477570', [200])
         console.log('\n\n');
     })
     .catch(err => {
-        console.log(`getCharacter Error: ${error}`);
+        console.log(`getCharacter Error: ${err}`);
     });
 
 // Decided to choose a random somewhat active clan
@@ -67,30 +67,32 @@ destiny.getClanWeeklyRewardState('206662')
         console.log('\n\n');
     })
     .catch(err => {
-        console.log(`getClanWeeklyRewardState Error: ${error}`);
+        console.log(`getClanWeeklyRewardState Error: ${err}`);
     });
 
-// Get a specific items description from my inventory
-destiny.getItem(1, '4611686018452936098', '6917529034457803619', [300])
+// Get a specific items description from my inventory 
+// via instanceId: 6917529034451059181
+destiny.getItem(1, '4611686018452936098', '6917529034451059181', [300])
     .then(res => {
         console.log(res.Response);
         console.log('\n\n');
     })
     .catch(err => {
-        console.log(`getItem Error: ${error}`);
+        console.log(`getItem Error: ${err}`);
     });
 
-/*
-// gets list of current vendors - Endpoint not active as of yet
 
+// gets list of current vendors - Endpoint not active as of yet
+// /operation_get_Destiny2-GetVendor.html#operation_get_Destiny2-GetVendor
+/*
 destiny.getVendors(1, '4611686018452936098', '2305843009278477570', [402])
     .then(res => {
-        console.logres;
+        console.log(res);
         console.log('\n\n');
     })
     .catch(err => {
-         console.log(`getVendors Error: ${error}`);
-    })
+         console.log(`getVendors Error: ${err}`);
+    });
 */
 
 // Gets one of my post game carnage reports
@@ -100,7 +102,7 @@ destiny.getPostGameCarnageReport('328104460')
         console.log('\n\n');
     })
     .catch(err => {
-        console.log(`getPostGameCarnageReport Error: ${error}`);
+        console.log(`getPostGameCarnageReport Error: ${err}`);
     });
 
 destiny.getHistoricalStatsDefinition()
@@ -109,7 +111,7 @@ destiny.getHistoricalStatsDefinition()
         console.log('\n\n');
     })
     .catch(err => {
-        console.log(`getHistoricalStatsDefinition Error: ${error}`);
+        console.log(`getHistoricalStatsDefinition Error: ${err}`);
     });
 
 // searching for MIDA Multi-tool weapon
@@ -118,7 +120,7 @@ destiny.searchDestinyEntities('DestinyInventoryItemDefinition', 'MIDA Multi-Tool
         console.log(res.Response);
     })
     .catch(err => {
-        console.log(`searchDestinyEntities Error: ${error}`);
+        console.log(`searchDestinyEntities Error: ${err}`);
     });
 
 // gets information on a specific public milestone
@@ -128,7 +130,7 @@ destiny.getPublicMilestoneContent('4253138191')
         console.log('\n\n');
     })
     .catch(err => {
-        console.log(`getPublicMilestoneContent Error: ${error}`);
+        console.log(`getPublicMilestoneContent Error: ${err}`);
     });
 
 // lists current public milestones
@@ -138,7 +140,7 @@ destiny.getPublicMilestones()
         console.log('\n\n');
     })
     .catch(err => {
-        console.log(`getPublicMilestones Error: ${error}`);
+        console.log(`getPublicMilestones Error: ${err}`);
     });
 
 
@@ -149,7 +151,7 @@ destiny.getClanLeaderboards('206662')
         console.log('\n\n');
     })
     .catch(err => {
-        console.log(`getClanLeaderboards Error: ${error}`);
+        console.log(`getClanLeaderboards Error: ${err}`);
     });
 
 destiny.getClanAggregateStats('206662')
