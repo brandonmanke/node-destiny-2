@@ -6,7 +6,7 @@ const Destiny2API = require('../index.js');
 const fs = require('fs');
 const config = JSON.parse(fs.readFileSync('./config/config.json'));
 
-jest.setTimeout(10000);
+jest.setTimeout(12000);
 
 const destiny = new Destiny2API({
     key: config.apikey
@@ -79,7 +79,6 @@ test('getProfile returns user profile object', () => {
     return destiny.getProfile(1, '4611686018452936098', [100])
         .then(res => {
             expect(res.Response).toHaveProperty('profile');
-            expect(res.Response).toHaveProperty('itemComponents');
             expect(res.Response.profile).toHaveProperty('data');
             expect(res.Response.profile).toHaveProperty('privacy');
             expect(res.Response.profile.data).toHaveProperty('userInfo');
@@ -111,7 +110,7 @@ test('getClanWeeklyRewardState returns the current clan progress', () => {
 });
 
 test('getItem return a object with a specific item\'s info from my inventory', () => {
-    return destiny.getItem(1, '4611686018452936098', '6917529034457803619', [300])
+    return destiny.getItem(1, '4611686018452936098', '6917529034451059181', [300])
         .then(res => {
             expect(res.Response).toHaveProperty('characterId');
             expect(res.Response.characterId).toEqual('2305843009278477570');
@@ -195,7 +194,6 @@ test('getDestinyAggregateActivityStats returns all stats for all activities done
         .then(res => {
             expect(res.ErrorCode).toEqual(1);
             expect(res.Response).toHaveProperty('activities');
-            expect(res.Response.activities.length).toEqual(34); // unsure if this changes
         })
 });
 
