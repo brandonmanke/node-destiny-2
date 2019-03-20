@@ -82,7 +82,7 @@ destiny.getItem(1, '4611686018452936098', '6917529034451059181', [300])
     });
 
 
-// gets list of current vendors - Endpoint not active as of yet
+// gets list of current vendors - endpoint active but probably requires oauth
 // /operation_get_Destiny2-GetVendor.html#operation_get_Destiny2-GetVendor
 /*
 destiny.getVendors(1, '4611686018452936098', '2305843009278477570', [402])
@@ -98,7 +98,7 @@ destiny.getVendors(1, '4611686018452936098', '2305843009278477570', [402])
 // Gets one of my post game carnage reports
 destiny.getPostGameCarnageReport('328104460')
     .then(res => {
-        console.log(res.Response);
+        console.log(res);
         console.log('\n\n');
     })
     .catch(err => {
@@ -147,7 +147,7 @@ destiny.getPublicMilestones()
 // empty response for now (endpoint not ready)
 destiny.getClanLeaderboards('206662')
     .then(res => {
-        console.log(res.Response);
+        console.log(res);
         console.log('\n\n');
     })
     .catch(err => {
@@ -156,11 +156,11 @@ destiny.getClanLeaderboards('206662')
 
 destiny.getClanAggregateStats('206662')
     .then(res => {
-        console.logres;
+        console.log(res);
         console.log('\n\n');
     })
     .catch(err => {
-        console.logerr;
+        console.log(err);
     });
 
 // modes 7 is allpve and groups 2 is weapons only 
@@ -170,20 +170,20 @@ destiny.getHistoricalStats(1,
                           '2305843009278477570', 
                           { modes: [7], groups: [2] })
     .then(res => {
-        console.logres;
+        console.log(res);
         console.log('\n\n');
     })
     .catch(err => {
-        console.logerr;
+        console.log(err);
     });
 
 destiny.getHistoricalStatsForAccount(1, '4611686018452936098')
     .then(res => {
-        console.logres;
+        console.log(res);
         console.log('\n\n');
     })
     .catch(err => {
-        console.logerr;
+        console.log(err);
     });
 
 // get activity history for a character, return 5 rows, and filter for only PvE
@@ -192,28 +192,28 @@ destiny.getActivityHistory(1,
                            '2305843009278477570', 
                            { count: [5], mode: [7] })
     .then(res => {
-        console.logres;
+        console.log(res);
         console.log('\n\n');
     })
     .catch(err => {
-        console.logerr;
+        console.log(err);
     });
 
 destiny.getUniqueWeaponHistory(1, '4611686018452936098', '2305843009278477570')
     .then(res => {
-        console.logres;
+        console.log(res);
         console.log('\n\n');
     })
     .catch(err => {
-        console.logerr;
+        console.log(err);
     });
 
 
 destiny.getDestinyAggregateActivityStats(1, '4611686018452936098', '2305843009278477570')
     .then(res => {
-        console.logres;
+        console.log(res);
         console.log('\n\n');
     })
     .catch(err => {
-        console.logerr;
+        console.log(err);
     });

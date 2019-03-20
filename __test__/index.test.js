@@ -233,7 +233,5 @@ test('getPublicMilestoneContent for the hash 4253138191', () => {
 // since these always change we just check error code for success
 test('getPublicMilestones returns list of current milestones', () => {
     return destiny.getPublicMilestones()
-        .then(res => {
-            expect(res.ErrorCode).toEqual(1);
-        });
+        .then(res => expect(res.ErrorCode).toEqual(1));
 });

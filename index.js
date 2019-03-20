@@ -127,8 +127,7 @@ class Destiny2API {
     }
 
     /**
-     * This endpoint is not active as of yet (BETA)
-     * Get available vendors info.
+     * Get available vendors info. (Requires OAuth) - TODO: test
      */
     getVendors(membershipType, destinyMembershipId, characterId, destinyComponentType) {
         this.options.path = `${this.path}/${membershipType}/Profile/` +
@@ -140,8 +139,7 @@ class Destiny2API {
     }
 
     /**
-     * This endpoint is not active as of yet (BETA)
-     * Get specific vendor info based on vendorHash.
+     * Get specific vendor info based on vendorHash. (Requires OAuth) - TODO: test
      */
     getVendor(membershipType, destinyMembershipId, characterId, vendorHash) {
         this.options.path = `${this.path}/${membershipType}/Profile/` +
@@ -168,7 +166,9 @@ class Destiny2API {
     getPostGameCarnageReport(activityId) {
         this.options.path = `${this.path}/Stats/PostGameCarnageReport/${activityId}/`;
         this.options.method = 'GET';
-        return promiseRequest(this.options).then(res => formatJson(res));
+        const opsCopy = this.options;
+        opsCopy.host = 'stats.bungie.net'
+        return promiseRequest(opsCopy).then(res => formatJson(res));
     }
 
     /**
@@ -204,31 +204,32 @@ class Destiny2API {
 
     /**
      * This endpoint is still in beta
+     * Endpoint error code returns exception currently.
      */
-    getLeaderboards(membershipType, destinyMembershipId, queryStr = {}) {
+    /*getLeaderboards(membershipType, destinyMembershipId, queryStr = {}) {
         this.options.path = `${this.path}/${membershipType}/Account/` + 
                             `${destinyMembershipId}/Stats/Leaderboards/`;
         const qString = toQueryString(queryStr);
         this.options.path += qString;
         this.options.method = 'GET';
         return promiseRequest(this.options).then(res => formatJson(res));
-    }
+    }*/
 
     /**
-     * This endpoint is still in beta
+     * This endpoint is still in beta (Requires OAuth, unsure if working) - TODO: test
      * @param {number} membershipType
      * @param {string} destinyMembershipId
      * @param {string} characterId
      * @param {Object} queryStrings (valid queryString params: maxtop, modes, statid)
      */
-    getLeaderboardsForCharacter(membershipType, destinyMembershipId, characterId, queryStr = {}) {
+    /*getLeaderboardsForCharacter(membershipType, destinyMembershipId, characterId, queryStr = {}) {
         this.options.path = `${this.path}/Stats/Leaderboards/` +
                             `${membershipType}/${destinyMembershipId}/${characterId}/`;
         const qString = toQueryString(queryStr); // multiple params can be passed
         this.options.path += qString;
         this.options.method = 'GET';
         return promiseRequest(this.options).then(res => formatJson(res));
-    }
+    }*/
 
     /**
      * Gets a page list of items.
