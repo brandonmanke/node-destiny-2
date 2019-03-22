@@ -48,20 +48,23 @@ Install from NPM with:
 
 `npm install node-destiny-2`
 
+Or you can build from source via the [releases](https://github.com/brandonmanke/node-destiny-2/releases).
 
 ### Examples
 
-TODO
+See `examples` folder for basic function calls. Planning on adding more detailed ones (see [issues](https://github.com/brandonmanke/node-destiny-2/issues) if you want to help)
 
 ### Documentation
 
+For general JSDoc documentation see each file in the `lib` folder. More specifically, `destiny-2-api.js` has fairly detailed documentation for each method call.
+
 For further reading on the API documentation see the [Official Destiny 2 API Documentation](https://github.com/Bungie-net/api).
 
-TODO
+See [issues](https://github.com/brandonmanke/node-destiny-2/issues) if you are interested in helping improve the available documentation. (I am planning on eventually adding some documentation generator based on JSDoc).
 
 ## Contributing
 
-If you see a feature that may need to be added, feel free to send a pull request. Feel free to fix an issue or file an issue of your own. I will set up a `CONTRIBUTING.md` eventually for code style and a little more information on creating pull requests. 
+If you see a feature that may need to be added, feel free to send a pull request. Also, feel free to fix or file an [issue](https://github.com/brandonmanke/node-destiny-2/issues) of your own. I will set up a `CONTRIBUTING.md` eventually for code style and a little more information on creating pull requests.
 
 ## License
 
