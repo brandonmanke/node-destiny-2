@@ -13,6 +13,16 @@ const destiny = new Destiny2API({
 // this would be a example of a sign in url, that should be able to be given by our wrapper
 console.log(`${destiny.oauthConfig.url}?client_id=${config.oauth_client_id}&response_type=code`);
 
+destiny.getManifest()
+    .then(res => {
+        const data = res;
+        console.log(data);
+        console.log('\n\n');
+    })
+    .catch(err => {
+        console.error(`Get Manifest Error: ${err}`);
+    });
+
 // examples of endpoints with oauth required
 // TODO checks for sign in before calling oauth endpoints
 /*destiny.getLeaderboardsForCharacter(

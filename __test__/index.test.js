@@ -39,6 +39,24 @@ test('async https rejection test', () => {
     });
 });
 
+/*test('format json rejection test', () => {
+    //const http = require('http');
+    const formatJson = require('../lib/format-json.js');
+    const badJson = `{ foo: bar, { foo: }`;
+    const options = {};
+    http.get(options, res => {
+        res.writeHead(200, { 'content-type': 'text/json' });
+        res.write(badJson, () => {
+            formatJson(res).catch(err => {
+                console.log('err', err)
+                expect(err).toEqual('foo')
+            });
+        });
+    });
+
+    formatJson(badJson)
+})*/
+
 test('getManifest returns the API\'s manifest', () => {
     //expect.assertions(1);
     return destiny.getManifest()
