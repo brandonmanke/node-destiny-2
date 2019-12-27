@@ -83,7 +83,7 @@ test('searchDestinyPlayer returns list of memberships tied to account', () => {
         .then(res => {
             expect(res.Response).toMatchObject([
                 {
-                    iconPath: '/img/theme/destiny/icons/icon_xbl.png',
+                    iconPath: "/img/theme/bungienet/icons/xboxLiveLogo.png",
                     membershipType: 1,
                     membershipId: '4611686018452936098',
                     displayName: 'Roflz1lla'
@@ -128,13 +128,11 @@ test('getClanWeeklyRewardState returns the current clan progress', () => {
 });
 
 test('getItem return a object with a specific item\'s info from my inventory', () => {
-    return destiny.getItem(1, '4611686018452936098', '6917529034451059181', [300])
+    return destiny.getItem(1, '4611686018452936098', '6917529055771173872', [300])
         .then(res => {
             expect(res.Response).toHaveProperty('characterId');
             expect(res.Response.characterId).toEqual('2305843009278477570');
             expect(res.Response).toHaveProperty('instance');
-            // not sure if needed
-            expect(res.Response.instance.data.damageTypeHash).toEqual(3373582085);
         });
 });
 

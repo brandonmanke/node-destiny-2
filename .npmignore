@@ -7,3 +7,5 @@ __test__/
 .travis.yml
 yarn.lock
 *.log
+npmpublish.yml
+.github/

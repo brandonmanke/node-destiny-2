@@ -50,7 +50,8 @@ destiny.getProfile(1, '4611686018452936098', [100])
     });
 
 // Looking up my character: charId: 2305843009278477570
-destiny.getCharacter(1, '4611686018452936098', '2305843009278477570', [200])
+// 205 gives inventory
+destiny.getCharacter(1, '4611686018452936098', '2305843009278477570', [200, 205]) 
     .then(res => {
         console.log(res.Response);
         console.log('\n\n');
@@ -71,8 +72,8 @@ destiny.getClanWeeklyRewardState('206662')
     });
 
 // Get a specific items description from my inventory 
-// via instanceId: 6917529034451059181
-destiny.getItem(1, '4611686018452936098', '6917529034451059181', [300])
+// via instanceId: 6917529055771173872
+destiny.getItem(1, '4611686018452936098', '6917529055771173872', [300])
     .then(res => {
         console.log(res.Response);
         console.log('\n\n');
@@ -84,7 +85,7 @@ destiny.getItem(1, '4611686018452936098', '6917529034451059181', [300])
 
 // gets list of current vendors - endpoint active but probably requires oauth
 // /operation_get_Destiny2-GetVendor.html#operation_get_Destiny2-GetVendor
-/*
+
 destiny.getVendors(1, '4611686018452936098', '2305843009278477570', [402])
     .then(res => {
         console.log(res);
@@ -93,7 +94,6 @@ destiny.getVendors(1, '4611686018452936098', '2305843009278477570', [402])
     .catch(err => {
          console.log(`getVendors Error: ${err}`);
     });
-*/
 
 // Gets one of my post game carnage reports
 destiny.getPostGameCarnageReport('328104460')
