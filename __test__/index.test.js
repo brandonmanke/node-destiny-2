@@ -251,3 +251,15 @@ test('getPublicMilestones returns list of current milestones', () => {
     return destiny.getPublicMilestones()
         .then(res => expect(res.ErrorCode).toEqual(1));
 });
+
+test('getMembershipFromHardLinkedCredential returns a membership from steam id ', () => {
+    return destiny.getMembershipFromHardLinkedCredential('76561198253960732')
+        .then(res => {
+            expect(res.ErrorCode).toEqual(1);
+            expect(res.Response).toHaveProperty('membershipType');
+            expect(res.Response).toHaveProperty('membershipType');
+            expect(res.Response.membershipType).toEqual(3); // always 3(Steam) for now
+            expect(res.Response).toHaveProperty('membershipId');
+            expect(res.Response).toHaveProperty('CrossSaveOverriddenType');
+        });
+})
