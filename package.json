@@ -26,12 +26,11 @@
   "homepage": "https://github.com/brandonmanke/node-destiny-2",
   "license": "MIT",
   "devDependencies": {
-    "codecov": "^3.5.0",
-    "jest": "^24.8.0"
+    "codecov": "^3.8.1",
+    "jest": "^24.9.0"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
     "collectCoverage": true
-  },
-  "dependencies": {}
+  }
 }
