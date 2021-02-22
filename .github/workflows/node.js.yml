@@ -13,6 +13,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      BUNGIE_NET_API_KEY: ${{ secrets.BUNGIE_NET_API_KEY }}
 
     strategy:
       matrix:
@@ -25,7 +27,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
+    #- run: npm ci
+    - run: export BUNGIE_NET_API_KEY=$BUNGIE_NET_API_KEY
+    - run: npm install
     - run: npm run build --if-present
     - run: npm test
-    - run: codecov
