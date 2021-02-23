@@ -3,8 +3,13 @@
  * TODO - test rejections for formatJson
  */
 const Destiny2API = require('../index.js');
-const fs = require('fs');
-const config = JSON.parse(fs.readFileSync('./config/config.json'));
+const fs = require('fs')
+let config = {}
+if (process.env.BUNGIE_NET_API_KEY) {
+    config.apikey = process.env.BUNGIE_NET_API_KEY
+} else {
+    config = JSON.parse(fs.readFileSync('./config/config.json'));
+}
 
 jest.setTimeout(12000);
 
