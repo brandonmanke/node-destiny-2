@@ -1,6 +1,6 @@
 {
   "name": "node-destiny-2",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "API Wrapper for Destiny 2 in Node.js",
   "main": "index.js",
   "scripts": {
