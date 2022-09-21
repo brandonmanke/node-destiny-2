@@ -37,7 +37,7 @@ test('toQueryString test', () => {
 });
 
 test('async https rejection test', () => {
-    const {promiseRequest, promisePost} = require('../lib/async-https.js');
+    const { promiseRequest, promisePost } = require('../lib/async-https.js');
     return promiseRequest({}).catch(err => {
         // not sure if this test is that useful
         expect(err).toEqual('connect ECONNREFUSED 127.0.0.1:443')
