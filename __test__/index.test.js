@@ -37,7 +37,7 @@ test('toQueryString test', () => {
 });
 
 test('async https rejection test', () => {
-    const promiseRequest = require('../lib/async-https.js');
+    const { promiseRequest, promisePost } = require('../lib/async-https.js');
     return promiseRequest({}).catch(err => {
         // not sure if this test is that useful
         expect(err).toEqual('connect ECONNREFUSED 127.0.0.1:443')
@@ -61,6 +61,34 @@ test('async https rejection test', () => {
 
     formatJson(badJson)
 })*/
+
+test('getBungieNetUserById returns bungienet account information', () => {
+    return destiny.getBungieNetUserById(18372687)
+        .then(res => {
+            expect(res.Response).toHaveProperty('membershipId');
+            expect(res.Response).toHaveProperty('uniqueName');
+            expect(res.Response).toHaveProperty('isDeleted');
+        });
+});
+
+test('SearchDestinyPlayerByBungieName returns Destiny memberships given a bungie name', () => {
+    return destiny.searchDestinyPlayerByBungieName("Special Weapon Enjoyer", 1566)
+        .then(res => {
+            expect(res.Response).toHaveProperty('iconPath');
+            expect(res.Response).toHaveProperty('crossSaveOverride');
+            expect(res.Response).toHaveProperty('membershipId');
+            expect(res.Response).toHaveProperty('membershipType');
+        });
+})
+
+test('getMembershipDataById returns all linked accounts and their membershipId\'s', () => {
+    return destiny.getMembershipDataById(-1, "4611686018475222724")
+        .then(res => {
+            expect(res.Response).toHaveProperty('destinyMemberships');
+            expect(res.Response).toHaveProperty('primaryMembershipId');
+            expect(res.Response).toHaveProperty('bungieNetUser');
+        });
+})
 
 test('getManifest returns the API\'s manifest', () => {
     //expect.assertions(1);
