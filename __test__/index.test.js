@@ -72,7 +72,7 @@ test('getBungieNetUserById returns bungienet account information', () => {
 });
 
 test('SearchDestinyPlayerByBungieName returns Destiny memberships given a bungie name', () => {
-    return destiny.SearchDestinyPlayerByBungieName("Special Weapon Enjoyer", 1566)
+    return destiny.searchDestinyPlayerByBungieName("Special Weapon Enjoyer", 1566)
         .then(res => {
             expect(res.Response).toHaveProperty('iconPath');
             expect(res.Response).toHaveProperty('crossSaveOverride');
