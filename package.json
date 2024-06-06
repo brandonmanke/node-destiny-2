@@ -27,7 +27,7 @@
   "license": "MIT",
   "devDependencies": {
     "codecov": "^3.8.1",
-    "jest": "^24.9.0"
+    "jest": "^29.7.0"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
