@@ -176,12 +176,22 @@ test('getPostGameCarnageReport for activityId 328104460', () => {
         });
 });
 
-test('searchDestinyEntities returns page list for MIDA Multi-tool search', () => {
-    return destiny.searchDestinyEntities('DestinyInventoryItemDefinition', 'MIDA Multi-Tool', [0])
-        .then(res => {
-            expect(res.ErrorCode).toEqual(1);
-            expect(res.Response).toHaveProperty('suggestedWords');
-            expect(res.Response).toHaveProperty('results');
+test('searchDestinyEntities rejects because endpoint is unsupported', () => {
+    const expectedMessage = 'searchDestinyEntities is unsupported because Bungie deprecated ' +
+        'the /Armory/Search endpoint. See: https://github.com/Bungie-net/api/issues/1922';
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+
+    return destiny.searchDestinyEntities('DestinyInventoryItemDefinition', '3027844941', [0])
+        .then(() => {
+            throw new Error('Expected searchDestinyEntities to reject');
+        })
+        .catch(err => {
+            expect(err).toBeInstanceOf(Error);
+            expect(err.message).toEqual(expectedMessage);
+            expect(warnSpy).toHaveBeenCalledWith(expectedMessage);
+        })
+        .finally(() => {
+            warnSpy.mockRestore();
         });
 });
 

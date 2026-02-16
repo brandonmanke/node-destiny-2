@@ -114,15 +114,6 @@ destiny.getHistoricalStatsDefinition()
         console.log(`getHistoricalStatsDefinition Error: ${err}`);
     });
 
-// searching for MIDA Multi-tool weapon
-destiny.searchDestinyEntities('DestinyInventoryItemDefinition', 'MIDA Multi-Tool', [0])
-    .then(res => {
-        console.log(res.Response);
-    })
-    .catch(err => {
-        console.log(`searchDestinyEntities Error: ${err}`);
-    });
-
 // gets information on a specific public milestone
 destiny.getPublicMilestoneContent('4253138191')
     .then(res => {
