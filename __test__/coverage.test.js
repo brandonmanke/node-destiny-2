@@ -53,6 +53,23 @@ test('getVendors delegates to request/format helpers', async () => {
     expect(result).toEqual({ ok: true });
 });
 
+test('constructor keeps provided oauth config values', () => {
+    const { Destiny2API } = getMockedDestiny2API();
+    const destiny = new Destiny2API({
+        key: 'test-key',
+        oauthConfig: {
+            id: 'oauth-id',
+            secret: 'oauth-secret'
+        }
+    });
+
+    expect(destiny.oauthConfig).toEqual({
+        id: 'oauth-id',
+        secret: 'oauth-secret',
+        url: 'https://www.bungie.net/en/OAuth/Authorize/'
+    });
+});
+
 test('getVendor delegates to request/format helpers', async () => {
     const { Destiny2API, promiseRequest, mockedFormatJson } = getMockedDestiny2API();
     promiseRequest.mockResolvedValue('raw');
@@ -82,4 +99,36 @@ test('searchDestinyEntities rejects and does not call request helper', async () 
     expect(promiseRequest).not.toHaveBeenCalled();
     expect(mockedFormatJson).not.toHaveBeenCalled();
     expect(warnSpy).toHaveBeenCalledWith(expectedMessage);
+});
+
+test('getHistoricalStats uses default empty query object', async () => {
+    const { Destiny2API, promiseRequest, mockedFormatJson } = getMockedDestiny2API();
+    promiseRequest.mockResolvedValue('raw');
+    mockedFormatJson.mockReturnValue({ ok: true });
+    const destiny = new Destiny2API({ key: 'test-key' });
+
+    const result = await destiny.getHistoricalStats(1, 'member', 'char');
+
+    expect(promiseRequest).toHaveBeenCalledWith(expect.objectContaining({
+        method: 'GET',
+        path: '/Platform/Destiny2/1/Account/member/Character/char/Stats/'
+    }));
+    expect(mockedFormatJson).toHaveBeenCalledWith('raw');
+    expect(result).toEqual({ ok: true });
+});
+
+test('getActivityHistory uses default empty query object', async () => {
+    const { Destiny2API, promiseRequest, mockedFormatJson } = getMockedDestiny2API();
+    promiseRequest.mockResolvedValue('raw');
+    mockedFormatJson.mockReturnValue({ ok: true });
+    const destiny = new Destiny2API({ key: 'test-key' });
+
+    const result = await destiny.getActivityHistory(1, 'member', 'char');
+
+    expect(promiseRequest).toHaveBeenCalledWith(expect.objectContaining({
+        method: 'GET',
+        path: '/Platform/Destiny2/1/Account/member/Character/char/Stats/Activities/'
+    }));
+    expect(mockedFormatJson).toHaveBeenCalledWith('raw');
+    expect(result).toEqual({ ok: true });
 });
